@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java 数组 | 三月三漫画</title><meta name="description" content="Java 数组数组对于每一门编程语言来说都是重要的数据结构之一，当然不同语言对数组的实现及处理也不尽相同。 Java 语言中提供的数组是用来存储固定大小的同类型元素。 声明数组变量首先必须声明数组变量，才能在程序中使用数组。下面是声明数组变量的语法： 123dataType[] arrayRefVar;   &#x2F;&#x2F; 首选的方法或dataType arrayRefVar[];  &amp;"><meta name="keywords" content="JavaSE"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Java 数组"><meta name="twitter:description" content="Java 数组数组对于每一门编程语言来说都是重要的数据结构之一，当然不同语言对数组的实现及处理也不尽相同。 Java 语言中提供的数组是用来存储固定大小的同类型元素。 声明数组变量首先必须声明数组变量，才能在程序中使用数组。下面是声明数组变量的语法： 123dataType[] arrayRefVar;   &#x2F;&#x2F; 首选的方法或dataType arrayRefVar[];  &amp;"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/1935x1080.jfif"><meta property="og:type" content="article"><meta property="og:title" content="Java 数组"><meta property="og:url" content="https://zysheep.cn/2018/03/13/JavaSE/API/12/"><meta property="og:site_name" content="三月三漫画"><meta property="og:description" content="Java 数组数组对于每一门编程语言来说都是重要的数据结构之一，当然不同语言对数组的实现及处理也不尽相同。 Java 语言中提供的数组是用来存储固定大小的同类型元素。 声明数组变量首先必须声明数组变量，才能在程序中使用数组。下面是声明数组变量的语法： 123dataType[] arrayRefVar;   &#x2F;&#x2F; 首选的方法或dataType arrayRefVar[];  &amp;"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/1935x1080.jfif"><meta property="article:published_time" content="2018-03-13T13:30:45.000Z"><meta property="article:modified_time" content="2020-05-23T01:35:29.397Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2018/03/13/JavaSE/API/12/"><link rel="prev" title="String类" href="https://zysheep.cn/2018/03/14/JavaSE/API/13/"><link rel="next" title="Java Character 类" href="https://zysheep.cn/2018/03/12/JavaSE/API/11/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">106</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">32</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-数组"><span class="toc-number">1.</span> <span class="toc-text">Java 数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明数组变量"><span class="toc-number">2.</span> <span class="toc-text">声明数组变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建数组"><span class="toc-number">3.</span> <span class="toc-text">创建数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理数组"><span class="toc-number">4.</span> <span class="toc-text">处理数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#For-Each-循环"><span class="toc-number">5.</span> <span class="toc-text">For-Each 循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组作为函数的参数"><span class="toc-number">6.</span> <span class="toc-text">数组作为函数的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组作为函数的返回值"><span class="toc-number">7.</span> <span class="toc-text">数组作为函数的返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多维数组"><span class="toc-number">8.</span> <span class="toc-text">多维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多维数组的动态初始化（以二维数组为例）"><span class="toc-number">9.</span> <span class="toc-text">多维数组的动态初始化（以二维数组为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多维数组的引用（以二维数组为例）"><span class="toc-number">10.</span> <span class="toc-text">多维数组的引用（以二维数组为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Arrays-类"><span class="toc-number">11.</span> <span class="toc-text">Arrays 类</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/1935x1080.jfif)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三漫画</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Java 数组</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2018-03-13 21:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2018-03-13</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-23 09:35:29"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-23</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JavaSE/">JavaSE</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JavaSE/Java%E8%AF%AD%E6%B3%95%E7%AF%87/">Java语法篇</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JavaSE/Java%E8%AF%AD%E6%B3%95%E7%AF%87/JDK%E5%B8%B8%E7%94%A8API/">JDK常用API</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 4 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2018/03/13/JavaSE/API/12/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="Java-数组"><a href="#Java-数组" class="headerlink" title="Java 数组"></a>Java 数组</h2><p>数组对于每一门编程语言来说都是重要的<strong>数据结构</strong>之一，当然不同语言对数组的实现及处理也不尽相同。</p>
+<p><code>Java</code> 语言中提供的<strong>数组</strong>是用来存储固定大小的同类型元素。</p>
+<h2 id="声明数组变量"><a href="#声明数组变量" class="headerlink" title="声明数组变量"></a>声明数组变量</h2><p>首先必须声明数组变量，才能在程序中使用数组。下面是声明数组变量的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dataType[] arrayRefVar;   &#x2F;&#x2F; 首选的方法</span><br><span class="line">或</span><br><span class="line">dataType arrayRefVar[];  &#x2F;&#x2F; 效果相同，但不是首选方法</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>: 建议使用 dataType[] arrayRefVar 的声明风格声明数组变量。 dataType arrayRefVar[] 风格是来自 C/C++ 语言 ，在<code>Java</code>中采用是为了让 C/C++ 程序员能够快速理解java语言。</p>
+<h2 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h2><p><code>Java</code>语言使用<code>new</code>操作符来创建数组，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">double[] doubles;</span><br><span class="line">doubles &#x3D; new double[100];</span><br></pre></td></tr></table></figure>
+<p>上面的语法语句做了两件事：</p>
+<ul>
+<li>使用  new double[100] 创建了一个数组。</li>
+<li>把新创建的数组的引用赋值给变量 doubles。</li>
+</ul>
+<p>数组的元素是通过索引访问的。数组索引从 <code>0</code>开始，所以索引值从<code>0</code> 到 doubles.length-1。</p>
+<h2 id="处理数组"><a href="#处理数组" class="headerlink" title="处理数组"></a>处理数组</h2><p>数组的元素类型和数组的大小都是确定的，所以当处理数组元素时候，我们通常使用基本循环或者 For-Each 循环。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class ArrayTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        double[] doubles;</span><br><span class="line">        doubles &#x3D; new double[5];</span><br><span class="line"></span><br><span class="line">        doubles[0] &#x3D; 0.1;</span><br><span class="line">        doubles[1] &#x3D; 0.1;</span><br><span class="line">        doubles[2] &#x3D; 0.1;</span><br><span class="line">        doubles[3] &#x3D; 0.1;</span><br><span class="line">        doubles[4] &#x3D; 0.1;</span><br><span class="line"></span><br><span class="line">        for (double aDouble : doubles) &#123;</span><br><span class="line">            System.out.println(aDouble);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="For-Each-循环"><a href="#For-Each-循环" class="headerlink" title="For-Each 循环"></a>For-Each 循环</h2><p><code>JDK 1.5</code> 引进了一种新的循环类型，被称为 <code>For-Each</code> 循环或者加强型循环，它能在不使用下标的情况下遍历数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (double aDouble : doubles) &#123;</span><br><span class="line">    System.out.println(aDouble);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数组作为函数的参数"><a href="#数组作为函数的参数" class="headerlink" title="数组作为函数的参数"></a>数组作为函数的参数</h2><p>数组可以作为参数传递给方法。</p>
+<p>例如，下面的例子就是一个打印 int 数组中元素的方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void printArray(int[] array) &#123;</span><br><span class="line">  for (int i &#x3D; 0; i &lt; array.length; i++) &#123;</span><br><span class="line">    System.out.print(array[i] + &quot; &quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面例子调用 printArray 方法打印出 3，1，2，6，4 和 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printArray(new int[]&#123;3, 1, 2, 6, 4, 2&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="数组作为函数的返回值"><a href="#数组作为函数的返回值" class="headerlink" title="数组作为函数的返回值"></a>数组作为函数的返回值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static int[] reverse(int[] list) &#123;</span><br><span class="line">  int[] result &#x3D; new int[list.length];</span><br><span class="line"> </span><br><span class="line">  for (int i &#x3D; 0, j &#x3D; result.length - 1; i &lt; list.length; i++, j--) &#123;</span><br><span class="line">    result[j] &#x3D; list[i];</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><p>多维数组可以看成是数组的数组，比如二维数组就是一个特殊的一维数组，其每一个元素都是一个一维数组，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str[][] &#x3D; new String[3][4];</span><br></pre></td></tr></table></figure>
+<h2 id="多维数组的动态初始化（以二维数组为例）"><a href="#多维数组的动态初始化（以二维数组为例）" class="headerlink" title="多维数组的动态初始化（以二维数组为例）"></a>多维数组的动态初始化（以二维数组为例）</h2><ol>
+<li>直接为每一维分配空间，格式如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type[][] typeName &#x3D; new type[typeLength1][typeLength2];</span><br></pre></td></tr></table></figure>
+<code>type</code>可以为基本数据类型和复合数据类型，<code>arraylength1</code>和 <code>arraylength2</code>必须为正整数，<code>arraylength1</code> 为行数，<code>arraylength2</code>为列数。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int a[][] &#x3D; new int[2][3];</span><br></pre></td></tr></table></figure></li>
+<li>从最高维开始，分别为每一维分配空间，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void moreArrayTest()&#123;</span><br><span class="line">    &#x2F;&#x2F;二维数组 str 可以看成一个两行三列的数组。</span><br><span class="line">    String[][] str &#x3D; new String[2][10];</span><br><span class="line">    str[0][0] &#x3D; &quot;hello&quot;;</span><br><span class="line">    str[0][1] &#x3D; &quot;world&quot;;</span><br><span class="line">    for (String strings : str[0]) &#123;</span><br><span class="line">        System.out.println(strings);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+二维数组 <code>a</code> 可以看成一个两行三列的数组。</li>
+</ol>
+<h2 id="多维数组的引用（以二维数组为例）"><a href="#多维数组的引用（以二维数组为例）" class="headerlink" title="多维数组的引用（以二维数组为例）"></a>多维数组的引用（以二维数组为例）</h2><p>对二维数组中的每个元素，引用方式为 arrayName[index1][index2]，例如：</p>
+<h2 id="Arrays-类"><a href="#Arrays-类" class="headerlink" title="Arrays 类"></a>Arrays 类</h2><p><code>java.util.Arrays</code> 类能方便地操作数组，它提供的所有方法都是静态的。具有以下功能：</p>
+<ul>
+<li>给数组赋值：通过 <code>fill</code> 方法。</li>
+<li>对数组排序：通过 <code>sort</code>方法,按升序。</li>
+<li>比较数组：通过 <code>equals</code> 方法比较数组中元素值是否相等。</li>
+<li>查找数组元素：通过 <code>binarySearch</code> 方法能对排序好的数组进行二分查找法操作。</li>
+</ul>
+<p>具体说明请查看下表：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法和说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>public static int binarySearch(Object[] a, Object key)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>用二分查找算法在给定数组中搜索给定值的对象(Byte,Int,double等)。数组在调用前必须排序好的。如果查找值包含在数组中，则返回搜索键的索引；否则返回 (-(插入点) - 1)。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>public static boolean equals(long[] a, long[] a2)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>如果两个指定的 long 型数组彼此相等，则返回true。如果两个数组包含相同数量的元素，并且两个数组中的所有相应元素对都是相等的，则认为这两个数组是相等的。换句话说，如果两个数组以相同顺序包含相同的元素，则两个数组是相等的。同样的方法适用于所有的其他基本数据类型（Byte，short，Int等）。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>public static void fill(int[] a, int val)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>将指定的 int 值分配给指定 int 型数组指定范围中的每个元素。同样的方法适用于所有的其他基本数据类型（Byte，short，Int等）。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>public static void sort(Object[] a)</td>
+</tr>
+<tr>
+<td>-</td>
+<td>对指定对象数组根据其元素的自然顺序进行升序排列。同样的方法适用于所有的其他基本数据类型（Byte，short，Int等）。</td>
+</tr>
+</tbody></table>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2018/03/13/JavaSE/API/12/">https://zysheep.cn/2018/03/13/JavaSE/API/12/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三漫画</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaSE/">JavaSE</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2018/03/14/JavaSE/API/13/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1737x1152.jfif" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">String类</div></div></a></div><div class="next-post pull_right"><a href="/2018/03/12/JavaSE/API/11/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1322x1020.jfif" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java Character 类</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018/04/10/JavaSE/jdk1.8/40/" title="Java 8 新特性"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1921x1211.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-10</div><div class="relatedPosts_title">Java 8 新特性</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/09/JavaSE/jdk1.5/41/" title="Java1.5-注解"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1921x1116.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-09</div><div class="relatedPosts_title">Java1.5-注解</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/08/JVM/39/" title="Heap 堆"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1322x1020.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-08</div><div class="relatedPosts_title">Heap 堆</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/07/JVM/38/" title="JVM体系结构概述"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1927x1080.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-07</div><div class="relatedPosts_title">JVM体系结构概述</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/06/JavaSE/Collection/35/" title="Set接口"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1536x1058.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-06</div><div class="relatedPosts_title">Set接口</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/06/JavaSE/Collection/36/" title="Java 序列化"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1921x1080.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-06</div><div class="relatedPosts_title">Java 序列化</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/1935x1080.jfif)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>

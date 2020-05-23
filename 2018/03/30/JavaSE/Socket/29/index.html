@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Socket网络编程 | 三月三漫画</title><meta name="description" content="1. 网络编程概述1.1 IP地址（InetAddress类） 每台网络终端在网络中都有一个独立的地址，我们在网络中传输数据就是使用这个地址。  ipconfig：查看本机IP ping：测试连接 本地回路地址：127.0.0.1 IPv4：4个字节组成，4个0-255。大概42亿，30亿都在北美，亚洲4亿。已经用尽。0000.0000.0000.0000-1111.1111.1111.1111"><meta name="keywords" content="JavaSE"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Socket网络编程"><meta name="twitter:description" content="1. 网络编程概述1.1 IP地址（InetAddress类） 每台网络终端在网络中都有一个独立的地址，我们在网络中传输数据就是使用这个地址。  ipconfig：查看本机IP ping：测试连接 本地回路地址：127.0.0.1 IPv4：4个字节组成，4个0-255。大概42亿，30亿都在北美，亚洲4亿。已经用尽。0000.0000.0000.0000-1111.1111.1111.1111"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/1598x1196.jfif"><meta property="og:type" content="article"><meta property="og:title" content="Socket网络编程"><meta property="og:url" content="https://zysheep.cn/2018/03/30/JavaSE/Socket/29/"><meta property="og:site_name" content="三月三漫画"><meta property="og:description" content="1. 网络编程概述1.1 IP地址（InetAddress类） 每台网络终端在网络中都有一个独立的地址，我们在网络中传输数据就是使用这个地址。  ipconfig：查看本机IP ping：测试连接 本地回路地址：127.0.0.1 IPv4：4个字节组成，4个0-255。大概42亿，30亿都在北美，亚洲4亿。已经用尽。0000.0000.0000.0000-1111.1111.1111.1111"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/1598x1196.jfif"><meta property="article:published_time" content="2018-03-30T13:30:45.000Z"><meta property="article:modified_time" content="2020-05-23T03:04:00.090Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2018/03/30/JavaSE/Socket/29/"><link rel="prev" title="Java 集合框架" href="https://zysheep.cn/2018/04/01/JavaSE/Collection/30/"><link rel="next" title="Java 多线程编程" href="https://zysheep.cn/2018/03/29/JavaSE/Thread/28/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">106</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">32</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">13</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-网络编程概述"><span class="toc-number">1.</span> <span class="toc-text">1. 网络编程概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-IP地址（InetAddress类）"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 IP地址（InetAddress类）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-端口号"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 端口号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-网络协议"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 网络协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Socket"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 Socket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-网络模型"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 网络模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-UDP传输"><span class="toc-number">2.</span> <span class="toc-text">2. UDP传输</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-发送"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 发送</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-接收"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 接收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-TCP传输"><span class="toc-number">3.</span> <span class="toc-text">3. TCP传输</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-客户端"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-服务端"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 服务端</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/1598x1196.jfif)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三漫画</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Socket网络编程</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2018-03-30 21:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2018-03-30</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-23 11:04:00"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-23</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JavaSE/">JavaSE</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JavaSE/Java%E9%AB%98%E7%BA%A7%E7%AF%87/">Java高级篇</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 4 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2018/03/30/JavaSE/Socket/29/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="1-网络编程概述"><a href="#1-网络编程概述" class="headerlink" title="1. 网络编程概述"></a>1. 网络编程概述</h1><h2 id="1-1-IP地址（InetAddress类）"><a href="#1-1-IP地址（InetAddress类）" class="headerlink" title="1.1 IP地址（InetAddress类）"></a>1.1 IP地址（InetAddress类）</h2><ul>
+<li>每台网络终端在网络中都有一个独立的地址，我们在网络中传输数据就是使用这个地址。 </li>
+<li>ipconfig：查看本机IP</li>
+<li>ping：测试连接</li>
+<li>本地回路地址：127.0.0.1</li>
+<li>IPv4：4个字节组成，4个0-255。大概42亿，30亿都在北美，亚洲4亿。已经用尽。0000.0000.0000.0000-1111.1111.1111.1111</li>
+<li>IPv6：8组，每组4个16进制数。</li>
+</ul>
+<h2 id="1-2-端口号"><a href="#1-2-端口号" class="headerlink" title="1.2 端口号"></a>1.2 端口号</h2><ul>
+<li>每个网络程序都需要绑定一个端口号，传输数据的时候除了确定发到哪台机器上，还要明确发到哪个程序。</li>
+<li>端口号范围从0-65535</li>
+<li>编写网络应用就需要绑定一个端口号，尽量使用1024以上的，1024以下的基本上都被系统程序占用了。</li>
+<li>常用端口<ul>
+<li>mysql: 3306</li>
+<li>oracle: 1521</li>
+<li>web: 80</li>
+<li>tomcat: 8080</li>
+<li>QQ: 4000</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-网络协议"><a href="#1-3-网络协议" class="headerlink" title="1.3 网络协议"></a>1.3 网络协议</h2><p>为计算机网络中进行数据交换而建立的规则、标准或约定的集合。        </p>
+<blockquote>
+<p> java.net<code>包中</code>J2SE<code>的</code> API 包含有类和接口，它们提供低层次的通信细节。你可以直接使用这些类和接口，来专注于解决问题，而不用关注通信细节。</p>
+</blockquote>
+<p><code>java.net</code>包中提供了两种常见的网络协议的支持：</p>
+<ul>
+<li>UDP<ul>
+<li>面向无连接，数据不安全，速度快。不区分客户端与服务端。 </li>
+</ul>
+</li>
+<li>TCP<ul>
+<li>面向连接（三次握手），数据安全，速度略低。分为客户端和服务端。 </li>
+</ul>
+</li>
+</ul>
+<h2 id="1-4-Socket"><a href="#1-4-Socket" class="headerlink" title="1.4 Socket"></a>1.4 Socket</h2><ul>
+<li>通信的两端都有Socket。</li>
+<li>网络通信其实就是Socket间的通信。</li>
+<li>数据在两个Socket间通过IO传输。</li>
+<li>Socket在应用程序中创建，通过一种绑定机制与驱动程序建立关系，告诉自己所对应的IP和port。</li>
+</ul>
+<h2 id="1-5-网络模型"><a href="#1-5-网络模型" class="headerlink" title="1.5 网络模型"></a>1.5 网络模型</h2><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/socker1.png" alt=""><br><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/socker2.png" alt=""></p>
+<h1 id="2-UDP传输"><a href="#2-UDP传输" class="headerlink" title="2. UDP传输"></a>2. UDP传输</h1><h2 id="2-1-发送"><a href="#2-1-发送" class="headerlink" title="2.1 发送"></a>2.1 发送</h2><ul>
+<li>创建DatagramSocket</li>
+<li>创建DatagramPacket</li>
+<li>使用DatagramSocket发送DatagramPacket</li>
+<li>关闭DatagramSocket</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;发送端</span><br><span class="line">public class UdpTalkClient &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        DatagramSocket socket &#x3D; new DatagramSocket(8989);</span><br><span class="line">        BufferedReader bufferedReader&#x3D;new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">        String s &#x3D; bufferedReader.readLine();</span><br><span class="line">        byte[] bytes&#x3D;s.getBytes();</span><br><span class="line">        DatagramPacket datagramPacket &#x3D; new DatagramPacket(bytes,0,bytes.length,new InetSocketAddress(&quot;localhost&quot;,6666));</span><br><span class="line"></span><br><span class="line">       socket.send(datagramPacket);</span><br><span class="line">       socket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-2-接收"><a href="#2-2-接收" class="headerlink" title="2.2 接收"></a>2.2 接收</h2><ul>
+<li>创建DatagramSocket</li>
+<li>创建DatagramPacket</li>
+<li>使用DatagramSocket接收DatagramPacket</li>
+<li>关闭DatagramSocket</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class UdpTalkServer &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        DatagramSocket datagramSocket &#x3D; new DatagramSocket(6666);</span><br><span class="line">        byte[] bytes&#x3D;new byte[1024*60];</span><br><span class="line">        DatagramPacket packet &#x3D; new DatagramPacket(bytes,0,bytes.length);</span><br><span class="line">        datagramSocket.receive(packet);</span><br><span class="line">        byte[] data &#x3D; packet.getData();</span><br><span class="line"></span><br><span class="line">        System.out.println(new String(data));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-TCP传输"><a href="#3-TCP传输" class="headerlink" title="3. TCP传输"></a>3. TCP传输</h1><h2 id="3-1-客户端"><a href="#3-1-客户端" class="headerlink" title="3.1 客户端"></a>3.1 客户端</h2><ul>
+<li>创建Socket连接服务端</li>
+<li>调用Socket的getInputStream()和getOutputStream()方法获取和服务端相连的管道流</li>
+<li>输入流可以读取服务端输出流写出的数据</li>
+<li>输出流可以写出数据到服务端的输入流</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*网络编程 (socket编程)</span><br><span class="line">* tcp(理解为打电话)和udp(理解为写信)是数据层的</span><br><span class="line">* http是应用层的,底层的实现还是用tcp和udp</span><br><span class="line">*</span><br><span class="line">* *&#x2F;</span><br><span class="line">&#x2F;* 创建客户端</span><br><span class="line">*  1.创建一个套接字并将其连到指定远程地址的指定远程端口</span><br><span class="line">*  2. 操作 输入输出流</span><br><span class="line">*  3. 释放资源</span><br><span class="line">*</span><br><span class="line">* *&#x2F;</span><br><span class="line"></span><br><span class="line">import java.io.*;</span><br><span class="line">import java.net.Socket;</span><br><span class="line"></span><br><span class="line">public class Client &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        Socket socket &#x3D; new Socket(&quot;localhost&quot;, 8888);</span><br><span class="line">        DataOutputStream outputStream&#x3D; new DataOutputStream(socket.getOutputStream());</span><br><span class="line">        String str&#x3D;&quot;世界你好,请善良待我&quot;;</span><br><span class="line">        outputStream.writeUTF(str);</span><br><span class="line">        outputStream.flush();</span><br><span class="line">        outputStream.close();</span><br><span class="line">        socket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-服务端"><a href="#3-2-服务端" class="headerlink" title="3.2 服务端"></a>3.2 服务端</h2><ul>
+<li>创建ServerSocket</li>
+<li>调用ServerSocket的accept()方法接收一个客户端请求，得到一个Socket</li>
+<li>调用Socket的getInputStream()和getOutputStream()方法获取和客户端相连的管道流</li>
+<li>输入流可以读取客户端输出流写出的数据</li>
+<li>输出流可以写出数据到客户端的输入流</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*  创建服务器</span><br><span class="line">*  1.创建绑定到特定服务器端口的套字节</span><br><span class="line">*  2.阻塞式等待连接 accept()</span><br><span class="line">*  3.操作:输入输出流</span><br><span class="line">*  4.释放资源</span><br><span class="line">* *&#x2F;</span><br><span class="line">public class  Server &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        ServerSocket serverSocket &#x3D; new ServerSocket(8888);</span><br><span class="line">        Socket accept &#x3D; serverSocket.accept();</span><br><span class="line">        System.out.println(&quot;---创建一个客户端连接-------&quot;);</span><br><span class="line">        DataInputStream inputStream &#x3D; new DataInputStream(accept.getInputStream());</span><br><span class="line">        String s &#x3D; inputStream.readUTF();</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        inputStream.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2018/03/30/JavaSE/Socket/29/">https://zysheep.cn/2018/03/30/JavaSE/Socket/29/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三漫画</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaSE/">JavaSE</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2018/04/01/JavaSE/Collection/30/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1598x1196.jfif" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java 集合框架</div></div></a></div><div class="next-post pull_right"><a href="/2018/03/29/JavaSE/Thread/28/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1536x1058.jfif" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java 多线程编程</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018/04/10/JavaSE/jdk1.8/40/" title="Java 8 新特性"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1921x1211.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-10</div><div class="relatedPosts_title">Java 8 新特性</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/09/JavaSE/jdk1.5/41/" title="Java1.5-注解"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1921x1116.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-09</div><div class="relatedPosts_title">Java1.5-注解</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/08/JVM/39/" title="Heap 堆"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1322x1020.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-08</div><div class="relatedPosts_title">Heap 堆</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/07/JVM/38/" title="JVM体系结构概述"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1927x1080.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-07</div><div class="relatedPosts_title">JVM体系结构概述</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/06/JavaSE/Collection/35/" title="Set接口"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1536x1058.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-06</div><div class="relatedPosts_title">Set接口</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/06/JavaSE/Collection/36/" title="Java 序列化"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1921x1080.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-06</div><div class="relatedPosts_title">Java 序列化</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/1598x1196.jfif)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
