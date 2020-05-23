@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>什么是幂等性 | 三月三漫画</title><meta name="description" content="1. 什么是幂等性HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。不管你调用一次，还是调用一百次，一千次，结果都是相同的。 123456GET     &#x2F;tickets       # 获取ticket列表GET     &#x2F;tickets&#x2F;12    # 查看某个具体的ticketPOST    &#x2F;tickets       # 新"><meta name="keywords" content="RESTful,架构"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="什么是幂等性"><meta name="twitter:description" content="1. 什么是幂等性HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。不管你调用一次，还是调用一百次，一千次，结果都是相同的。 123456GET     &#x2F;tickets       # 获取ticket列表GET     &#x2F;tickets&#x2F;12    # 查看某个具体的ticketPOST    &#x2F;tickets       # 新"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/RESTful-API-logo.png"><meta property="og:type" content="article"><meta property="og:title" content="什么是幂等性"><meta property="og:url" content="https://zysheep.cn/2018/05/26/SimpleApp/%E5%B9%82%E7%AD%89%E6%80%A7/76/"><meta property="og:site_name" content="三月三漫画"><meta property="og:description" content="1. 什么是幂等性HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。不管你调用一次，还是调用一百次，一千次，结果都是相同的。 123456GET     &#x2F;tickets       # 获取ticket列表GET     &#x2F;tickets&#x2F;12    # 查看某个具体的ticketPOST    &#x2F;tickets       # 新"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/RESTful-API-logo.png"><meta property="article:published_time" content="2018-05-26T02:30:45.000Z"><meta property="article:modified_time" content="2020-05-23T07:33:13.120Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2018/05/26/SimpleApp/%E5%B9%82%E7%AD%89%E6%80%A7/76/"><link rel="prev" title="第一个 MyBatis 对象关系映射" href="https://zysheep.cn/2018/05/26/SimpleApp/Mybatis/66/"><link rel="next" title="Spring 整合 Mybatis" href="https://zysheep.cn/2018/05/25/SimpleApp/Mybatis/65/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">116</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">36</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">35</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-什么是幂等性"><span class="toc-number">1.</span> <span class="toc-text">1. 什么是幂等性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-HTTP-GET-方法"><span class="toc-number">2.</span> <span class="toc-text">2.HTTP GET 方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-HTTP-POST-方法"><span class="toc-number">3.</span> <span class="toc-text">3. HTTP POST 方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-HTTP-PUT-方法"><span class="toc-number">4.</span> <span class="toc-text">4. HTTP PUT 方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-HTTP-PATCH-方法"><span class="toc-number">5.</span> <span class="toc-text">5. HTTP PATCH 方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-HTTP-DELETE-方法"><span class="toc-number">6.</span> <span class="toc-text">6. HTTP DELETE 方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-如何设计符合幂等性的高质量-RESTful-API"><span class="toc-number">7.</span> <span class="toc-text">7. 如何设计符合幂等性的高质量 RESTful API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-HTTP-GET-vs-HTTP-POST"><span class="toc-number">7.1.</span> <span class="toc-text">7.1  HTTP GET vs HTTP POST</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-HTTP-POST-vs-HTTP-PUT"><span class="toc-number">8.</span> <span class="toc-text">8. HTTP POST vs HTTP PUT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-HTTP-PUT-vs-HTTP-PATCH"><span class="toc-number">9.</span> <span class="toc-text">9. HTTP PUT vs HTTP PATCH</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/RESTful-API-logo.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三漫画</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">什么是幂等性</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2018-05-26 10:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2018-05-26</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-23 15:33:13"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-23</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%8D%95%E4%BD%93%E5%9C%B0%E7%8B%B1/">单体地狱</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%8D%95%E4%BD%93%E5%9C%B0%E7%8B%B1/RESTful/">RESTful</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 4 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2018/05/26/SimpleApp/%E5%B9%82%E7%AD%89%E6%80%A7/76/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="1-什么是幂等性"><a href="#1-什么是幂等性" class="headerlink" title="1. 什么是幂等性"></a>1. 什么是幂等性</h1><p>HTTP 幂等方法，是指无论调用多少次都不会有不同结果的 HTTP 方法。不管你调用一次，还是调用一百次，一千次，结果都是相同的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET     &#x2F;tickets       # 获取ticket列表</span><br><span class="line">GET     &#x2F;tickets&#x2F;12    # 查看某个具体的ticket</span><br><span class="line">POST    &#x2F;tickets       # 新建一个ticket</span><br><span class="line">PUT     &#x2F;tickets&#x2F;12    # 更新ticket 12</span><br><span class="line">PATCH   &#x2F;tickets&#x2F;12    # 更新ticket 12</span><br><span class="line">DELETE  &#x2F;tickets&#x2F;12    # 删除ticekt 12</span><br></pre></td></tr></table></figure>
+<h1 id="2-HTTP-GET-方法"><a href="#2-HTTP-GET-方法" class="headerlink" title="2.HTTP GET 方法"></a>2.HTTP GET 方法</h1><p>HTTP GET 方法，用于获取资源，不管调用多少次接口，结果都不会改变，所以是幂等的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET     &#x2F;tickets       # 获取ticket列表</span><br><span class="line">GET     &#x2F;tickets&#x2F;12    # 查看某个具体的ticket</span><br></pre></td></tr></table></figure>
+
+<p>只是查询数据，不会影响到资源的变化，因此我们认为它幂等。</p>
+<p>值得注意，幂等性指的是作用于结果而非资源本身。怎么理解呢？例如，这个 HTTP GET 方法可能会每次得到不同的返回内容，但并不影响资源。</p>
+<p>可能你会问有这种情况么？当然有咯。例如，我们有一个接口获取当前时间，我们就应该设计成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET     &#x2F;service_time # 获取服务器当前时间</span><br></pre></td></tr></table></figure>
+
+<p>它本身不会对资源本身产生影响，因此满足幂等性。</p>
+<h1 id="3-HTTP-POST-方法"><a href="#3-HTTP-POST-方法" class="headerlink" title="3. HTTP POST 方法"></a>3. HTTP POST 方法</h1><p>HTTP POST 方法是一个非幂等方法，因为调用多次，都将产生新的资源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST    &#x2F;tickets       # 新建一个ticket</span><br></pre></td></tr></table></figure>
+
+<p>因为它会对资源本身产生影响，每次调用都会有新的资源产生，因此不满足幂等性。</p>
+<h1 id="4-HTTP-PUT-方法"><a href="#4-HTTP-PUT-方法" class="headerlink" title="4. HTTP PUT 方法"></a>4. HTTP PUT 方法</h1><p>HTTP PUT 方法是不是幂等的呢？我们来看下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT     &#x2F;tickets&#x2F;12    # 更新ticket 12</span><br></pre></td></tr></table></figure>
+<p>因为它直接把实体部分的数据替换到服务器的资源，我们多次调用它，只会产生一次影响，但是有相同结果的 HTTP 方法，所以满足幂等性。</p>
+<h1 id="5-HTTP-PATCH-方法"><a href="#5-HTTP-PATCH-方法" class="headerlink" title="5. HTTP PATCH 方法"></a>5. HTTP PATCH 方法</h1><p>HTTP PATCH 方法是非幂等的。HTTP POST 方法和 HTTP PUT 方法可能比较好理解，但是 HTTP PATCH 方法只是更新部分资源，怎么是非幂等的呢?</p>
+<p>因为，PATCH 提供的实体则需要根据程序或其它协议的定义，解析后在服务器上执行，以此来修改服务器上的资源。换句话说，PATCH 请求是会执行某个程序的，如果重复提交，程序可能执行多次，对服务器上的资源就可能造成额外的影响，这就可以解释它为什么是非幂等的了。</p>
+<p>可能你还不能理解这点。我们举个例子</p>
+<p>PATCH   /tickets/12    # 更新ticket 12<br>此时，我们服务端对方法的处理是，当调用一次方法，更新部分字段，将这条 ticket 记录的操作记录加一，这次，每次调用的资源是不是变了呢，所以它是有可能是非幂等的操作。</p>
+<h1 id="6-HTTP-DELETE-方法"><a href="#6-HTTP-DELETE-方法" class="headerlink" title="6. HTTP DELETE 方法"></a>6. HTTP DELETE 方法</h1><p>HTTP DELETE 方法用于删除资源，会将资源删除。</p>
+<p>DELETE  /tickets/12    # 删除ticekt 12<br>调用一次和多次对资源产生影响是相同的，所以也满足幂等性。</p>
+<h1 id="7-如何设计符合幂等性的高质量-RESTful-API"><a href="#7-如何设计符合幂等性的高质量-RESTful-API" class="headerlink" title="7. 如何设计符合幂等性的高质量 RESTful API"></a>7. <strong>如何设计符合幂等性的高质量 RESTful API</strong></h1><h2 id="7-1-HTTP-GET-vs-HTTP-POST"><a href="#7-1-HTTP-GET-vs-HTTP-POST" class="headerlink" title="7.1  HTTP GET vs HTTP POST"></a>7.1  HTTP GET vs HTTP POST</h2><p>也许，你会想起一个面试题。HTTP 请求的 GET 与 POST 方式有什么区别？ 你可能会回答到：GET 方式通过 URL 提交数据，数据在 URL 中可以看到；POST 方式，数据放置在 HTML HEADER 内提交。但是，我们现在从 RESTful 的资源角度来看待问题，HTTP GET 方法是幂等的，所以它适合作为查询操作，HTTP POST 方法是非幂等的，所以用来表示新增操作。</p>
+<p>但是，也有例外，我们有的时候可能需要把查询方法改造成 HTTP POST 方法。比如，超长（1k）的 GET URL 使用 POST 方法来替代，因为 GET 受到 URL 长度的限制。虽然，它不符合幂等性，但是它是一种折中的方案。</p>
+<h1 id="8-HTTP-POST-vs-HTTP-PUT"><a href="#8-HTTP-POST-vs-HTTP-PUT" class="headerlink" title="8. HTTP POST vs HTTP PUT"></a>8. HTTP POST vs HTTP PUT</h1><p>对于 HTTP POST 方法和 HTTP PUT 方法，我们一般的理解是 POST 表示创建资源，PUT 表示更新资源。当然，这个是正确的理解。</p>
+<p>但是，实际上，两个方法都用于创建资源，更为本质的差别是在幂等性。HTTP POST 方法是非幂等，所以用来表示创建资源，HTTP PUT 方法是幂等的，因此表示更新资源更加贴切。</p>
+<h1 id="9-HTTP-PUT-vs-HTTP-PATCH"><a href="#9-HTTP-PUT-vs-HTTP-PATCH" class="headerlink" title="9. HTTP PUT vs HTTP PATCH"></a>9. HTTP PUT vs HTTP PATCH</h1><p>此时，你看会有另外一个问题。HTTP PUT 方法和 HTTP PATCH 方法，都是用来表述更新资源，它们之间有什么区别呢？我们一般的理解是 PUT 表示更新全部资源，PATCH 表示更新部分资源。首先，这个是我们遵守的第一准则。根据上面的描述，PATCH 方法是非幂等的，因此我们在设计我们服务端的 RESTful API 的时候，也需要考虑。如果，我们想要明确的告诉调用者我们的资源是幂等的，我的设计更倾向于使用 HTTP PUT 方法。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2018/05/26/SimpleApp/%E5%B9%82%E7%AD%89%E6%80%A7/76/">https://zysheep.cn/2018/05/26/SimpleApp/幂等性/76/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三漫画</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RESTful/">RESTful</a><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84/">架构</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2018/05/26/SimpleApp/Mybatis/66/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/MyBatis.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">第一个 MyBatis 对象关系映射</div></div></a></div><div class="next-post pull_right"><a href="/2018/05/25/SimpleApp/Mybatis/65/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/MyBatis.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring 整合 Mybatis</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018/05/25/SimpleApp/RESTful/75/" title="你怎么理解 RESTful"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/RESTful-API-logo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-05-25</div><div class="relatedPosts_title">你怎么理解 RESTful</div></div></a></div><div class="relatedPosts_item"><a href="/2018/05/24/SimpleApp/Apache HttpClient/72/" title="Apache HttpClient"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/httpclient_logo.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-05-24</div><div class="relatedPosts_title">Apache HttpClient</div></div></a></div><div class="relatedPosts_item"><a href="/2018/05/17/SimpleApp/MVC/62/" title="三层架构+MVC"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/mvc-mvvm-angularjs.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-05-17</div><div class="relatedPosts_title">三层架构+MVC</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/RESTful-API-logo.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
