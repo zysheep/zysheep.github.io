@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Github | 三月三漫画</title><meta name="description" content="1. githubgitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。 gitHub于2008年4月10日正式上线，除了git代码仓库托管及基本的 Web管理界面以外，还提供了订阅、讨论组、文本渲染、在线文件编辑器、协作图谱（报表）、代码片段分享（Gist）等功能。目前，其注册用户已经超过350万，托管版本数量也是非常之多，其中不乏"><meta name="keywords" content="Git,Linux"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Github"><meta name="twitter:description" content="1. githubgitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。 gitHub于2008年4月10日正式上线，除了git代码仓库托管及基本的 Web管理界面以外，还提供了订阅、讨论组、文本渲染、在线文件编辑器、协作图谱（报表）、代码片段分享（Gist）等功能。目前，其注册用户已经超过350万，托管版本数量也是非常之多，其中不乏"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/gihub.jfif"><meta property="og:type" content="article"><meta property="og:title" content="Github"><meta property="og:url" content="https://zysheep.cn/2018/05/03/Git/43/"><meta property="og:site_name" content="三月三漫画"><meta property="og:description" content="1. githubgitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。 gitHub于2008年4月10日正式上线，除了git代码仓库托管及基本的 Web管理界面以外，还提供了订阅、讨论组、文本渲染、在线文件编辑器、协作图谱（报表）、代码片段分享（Gist）等功能。目前，其注册用户已经超过350万，托管版本数量也是非常之多，其中不乏"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/gihub.jfif"><meta property="article:published_time" content="2018-05-03T02:30:45.000Z"><meta property="article:modified_time" content="2020-05-23T06:08:03.009Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2018/05/03/Git/43/"><link rel="prev" title="Git遇到的问题" href="https://zysheep.cn/2018/05/04/Git/44/"><link rel="next" title="Git" href="https://zysheep.cn/2018/05/02/Git/42/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">109</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">34</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-github"><span class="toc-number">1.</span> <span class="toc-text">1. github</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-使用github"><span class="toc-number">2.</span> <span class="toc-text">2. 使用github</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#高效搜索开源项目"><span class="toc-number">2.1.</span> <span class="toc-text">高效搜索开源项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-提高github官网的访问速度"><span class="toc-number">3.</span> <span class="toc-text">3. 提高github官网的访问速度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#我们先修改本地hosts文件"><span class="toc-number">3.0.1.</span> <span class="toc-text">我们先修改本地hosts文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#增加github-com域名相关的映射"><span class="toc-number">3.0.2.</span> <span class="toc-text">增加github.com域名相关的映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开ipaddress官网，找到github"><span class="toc-number">3.0.3.</span> <span class="toc-text">打开ipaddress官网，找到github</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-github团队协做开发"><span class="toc-number">4.</span> <span class="toc-text">4. github团队协做开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一-内部协作"><span class="toc-number">5.</span> <span class="toc-text">一.内部协作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建邀请"><span class="toc-number">5.1.</span> <span class="toc-text">1. 创建邀请</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-github会发送邮件给被邀请人"><span class="toc-number">5.2.</span> <span class="toc-text">2. github会发送邮件给被邀请人</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-接受邀请或者拒绝参与合作"><span class="toc-number">5.3.</span> <span class="toc-text">3. 接受邀请或者拒绝参与合作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-程序员小李拉取开发"><span class="toc-number">5.4.</span> <span class="toc-text">4. 程序员小李拉取开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-解决冲突"><span class="toc-number">5.5.</span> <span class="toc-text">5. 解决冲突</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-删除程序员小李访问权"><span class="toc-number">5.6.</span> <span class="toc-text">6. 删除程序员小李访问权</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-跨团队协作"><span class="toc-number">6.</span> <span class="toc-text">二. 跨团队协作</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/gihub.jfif)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三漫画</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> Language</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> movies</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Github</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2018-05-03 10:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2018-05-03</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-23 14:08:03"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-23</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Git/">Git</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.4k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 4 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2018/05/03/Git/43/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="1-github"><a href="#1-github" class="headerlink" title="1. github"></a>1. github</h1><p>gitHub是一个面向<a href="https://baike.baidu.com/item/%E5%BC%80%E6%BA%90/20720669" target="_blank" rel="noopener">开源</a>及私有<a href="https://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6/12053" target="_blank" rel="noopener">软件</a>项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名gitHub。</p>
+<p>gitHub于2008年4月10日正式上线，除了git代码仓库托管及基本的 Web管理界面以外，还提供了订阅、讨论组、文本渲染、在线文件编辑器、协作图谱（报表）、代码片段分享（Gist）等功能。目前，其注册用户已经超过350万，托管版本数量也是非常之多，其中不乏知名开源项目 <a href="https://baike.baidu.com/item/Ruby/11419" target="_blank" rel="noopener">Ruby</a> on Rails、<a href="https://baike.baidu.com/item/jQuery/5385065" target="_blank" rel="noopener">jQuery</a>、<a href="https://baike.baidu.com/item/python/407313" target="_blank" rel="noopener">python</a> 等。</p>
+<p>2018年6月4日，微软宣布，通过75亿美元的股票交易收购代码托管平台GitHub。</p>
+<h1 id="2-使用github"><a href="#2-使用github" class="headerlink" title="2. 使用github"></a>2. 使用github</h1><h2 id="高效搜索开源项目"><a href="#高效搜索开源项目" class="headerlink" title="高效搜索开源项目"></a>高效搜索开源项目</h2><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in:name<you_need></td>
+<td>标题中必须带有you_need的关键字，比如说，in:name python就代表项目标题必须有python关键字</td>
+</tr>
+<tr>
+<td>in:readme<you_need></td>
+<td>方法限制了项目详细介绍中的关键字</td>
+</tr>
+<tr>
+<td>in:description<you_need></td>
+<td>方法限制了项目简介中的关键字</td>
+</tr>
+<tr>
+<td>stars:&gt;1000</td>
+<td>项目的stars星星数大于1000个</td>
+</tr>
+<tr>
+<td>forks:&gt;1000</td>
+<td>项目上fork数大于1000</td>
+</tr>
+<tr>
+<td>language:java</td>
+<td>项目语言使用的java语言</td>
+</tr>
+<tr>
+<td>pushed:&gt;2019-10-01</td>
+<td>项目更新时间在2019年10月1日之后</td>
+</tr>
+</tbody></table>
+<p>上面的方法可以叠加使用，至少可以提高你的搜索精准度。</p>
+<h1 id="3-提高github官网的访问速度"><a href="#3-提高github官网的访问速度" class="headerlink" title="3. 提高github官网的访问速度"></a>3. 提高github官网的访问速度</h1><p><code>GitHub</code>访问速度慢，这是因为<code>GitHub</code>的<code>CDN</code>域名遭到<code>DNS</code>污染，导致无法连接<code>GitHub</code>的加速分发服务器，才会使得国内访问速度很慢。</p>
+<p><strong>解决:</strong> 通过修改 <code>Hosts</code> 文件，将域名解析直接指向 <code>IP 地址来绕过</code>DNS` 解析的办法解决污染的问题。</p>
+<h3 id="我们先修改本地hosts文件"><a href="#我们先修改本地hosts文件" class="headerlink" title="我们先修改本地hosts文件"></a>我们先修改本地hosts文件</h3><ul>
+<li><code>windows</code>系统<code>hosts</code>文件路径：<code>C:\Windows\System32\drivers\etc\hosts</code></li>
+<li><code>Linux</code>系统<code>hosts</code>文件路径：<code>/etc/hosts</code></li>
+<li><code>mac</code>系统<code>hosts</code>文件路径：<code>/etc/hosts</code></li>
+</ul>
+<p>加入以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># GitHub</span><br><span class="line">140.82.114.3 github.com #具体ip可能会变</span><br><span class="line">199.232.5.194 github.global.ssl.fastly.net #具体ip可能会变</span><br></pre></td></tr></table></figure>
+
+<h3 id="增加github-com域名相关的映射"><a href="#增加github-com域名相关的映射" class="headerlink" title="增加github.com域名相关的映射"></a>增加github.com域名相关的映射</h3><h3 id="打开ipaddress官网，找到github"><a href="#打开ipaddress官网，找到github" class="headerlink" title="打开ipaddress官网，找到github"></a>打开<a href="https://www.ipaddress.com/" target="_blank" rel="noopener">ipaddress</a>官网，找到github</h3><p><a href="http://github.com.ipaddress.com/#ipinfo" target="_blank" rel="noopener">github.com</a></p>
+<p><a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="noopener">github.global.ssl.fastly.net</a></p>
+<p>####修改后，我们使用“<code>ifconfig /flushdns</code>”命令刷新一下DNS解析缓存</p>
+<p>在此访问<code>github.com</code>网址时，虽然不能达到秒出，但是相比以前快多了！</p>
+<h1 id="4-github团队协做开发"><a href="#4-github团队协做开发" class="headerlink" title="4. github团队协做开发"></a>4. github团队协做开发</h1><h1 id="一-内部协作"><a href="#一-内部协作" class="headerlink" title="一.内部协作"></a>一.内部协作</h1><h2 id="1-创建邀请"><a href="#1-创建邀请" class="headerlink" title="1. 创建邀请"></a>1. 创建邀请</h2><blockquote>
+<p>假设两个用户：zysheep（产品经理）、java-ivanLi（程序员小李）<br>产品经理登入github，创建BaseTest仓库，邀请程序员小李协助开发,搜索java-ivanLi并添加</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523115906.png" alt=""></p>
+<blockquote>
+<p>搜索后<code>add java-ivanLi to BaseTest</code>,头部显示</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523115920.png" alt=""></p>
+<h2 id="2-github会发送邮件给被邀请人"><a href="#2-github会发送邮件给被邀请人" class="headerlink" title="2. github会发送邮件给被邀请人"></a>2. github会发送邮件给被邀请人</h2><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523115938.png" alt=""></p>
+<h2 id="3-接受邀请或者拒绝参与合作"><a href="#3-接受邀请或者拒绝参与合作" class="headerlink" title="3. 接受邀请或者拒绝参与合作"></a>3. 接受邀请或者拒绝参与合作</h2><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523115951.png" alt=""><br><strong>点击接受邀请，头部显示</strong><br><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523115959.png" alt=""></p>
+<p>返回主页,存在<code>zysheep/BaseTest</code>仓库</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120006.png" alt=""></p>
+<h2 id="4-程序员小李拉取开发"><a href="#4-程序员小李拉取开发" class="headerlink" title="4. 程序员小李拉取开发"></a>4. 程序员小李拉取开发</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;zysheep&#x2F;BaseTest.git  克隆远程库</span><br><span class="line">git status              查看状态</span><br><span class="line">修改helloworld.txt文件</span><br><span class="line">git commit -m &quot;ivan修改了helloworld&quot; helloworld.txt  提交到本地库</span><br><span class="line">git remote   查看远程地址</span><br><span class="line">git push origin master  push到origin（远程库别名）远程库</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查看<code>zysheep</code>(产品经理)的首页</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120014.png" alt=""></p>
+<blockquote>
+<p>有程序员小李的提交日志信息,点击zysheep/BaseTest查看文件详情</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120022.png" alt=""></p>
+<blockquote>
+<p>点击修改日志查看内容修改详情，对内容整体评论</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120043.png" alt=""></p>
+<blockquote>
+<p>对内容的一行评论</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120052.png" alt=""></p>
+<h2 id="5-解决冲突"><a href="#5-解决冲突" class="headerlink" title="5. 解决冲突"></a>5. 解决冲突</h2><p>如果不是基于GitHub 远程库的最新版所做的修改，不能推送，必须先拉取。拉取下来后如果进入冲突状态，则按照“分支冲突解决”操作解决即可。</p>
+<h2 id="6-删除程序员小李访问权"><a href="#6-删除程序员小李访问权" class="headerlink" title="6. 删除程序员小李访问权"></a>6. 删除程序员小李访问权</h2><blockquote>
+<p>程序员由于代码写的烂，被产品经理开除了，所以就需要删除对仓库的访问权限</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120103.png" alt=""></p>
+<blockquote>
+<p>头部信息</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120111.png" alt=""></p>
+<blockquote>
+<p>程序员小李由于被产品开除，心情很不好，就想提交bug到仓库中，祸害团队（开玩笑的，讲故事）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 修改helloworld.txt文件</span><br><span class="line">vim helloworld.txt</span><br><span class="line"># 添加的内容</span><br><span class="line">while(true)&#123;</span><br><span class="line">        System.out.pringln(&quot;该死产品经理&quot;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">git status  #查看工作区与本地库的状态</span><br><span class="line">git commit -m &quot;该死的产品经理&quot; helloworld.txt  #提交到本地库</span><br></pre></td></tr></table></figure>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120119.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote </span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120125.png" alt=""></p>
+<blockquote>
+<p>git更新了一个证书，我们本地需要再更新以下：<br><a href="https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/tag/v1.14.0" target="_blank" rel="noopener">https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/tag/v1.14.0</a><br>下载安装即可</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120136.png" alt=""></p>
+<blockquote>
+<p>再次提交,发现还是报错</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120142.png" alt=""></p>
+<p><strong>原因：</strong> 远程对java ivanLi访问zysheep/BaseTest.git的许可被拒绝，无法访问”<a href="https://github.com/zysheep/BaseTest.git/&quot;" target="_blank" rel="noopener">https://github.com/zysheep/BaseTest.git/&quot;</a></p>
+<p><strong>结论：删除没用的参与者，参与者就无法在对仓库进行访问</strong></p>
+<h1 id="二-跨团队协作"><a href="#二-跨团队协作" class="headerlink" title="二. 跨团队协作"></a>二. 跨团队协作</h1><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120152.png" alt=""></p>
+<blockquote>
+<p>假设：有两个团队：java-ivanLi（第三方）、zysheep（产品经理），产品经理请第三方帮忙协助修改自己修改不来的bug</p>
+</blockquote>
+<blockquote>
+<p>(1) 产品经理登录，复制的仓库地址发送给第三方，第三方Fork仓库到自己的远程库，clone到本地开发</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120202.png" alt=""></p>
+<blockquote>
+<p>(2) 克隆到本地，修改bug，提交到本地库，如果是添加了一个文件需要先添加到缓存区在提交到本地库，在<code>push</code>到远程仓库</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120209.png" alt=""></p>
+<blockquote>
+<p>(3) 发生一个pull request请求本地库与远程库合并</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120220.png" alt=""></p>
+<p><strong>下一步</strong></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120227.png" alt=""></p>
+<p><strong>下一步</strong></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120238.png" alt=""></p>
+<p><strong>下一步</strong></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120250.png" alt=""></p>
+<blockquote>
+<p>这里实际就是一个对话的过程了，等待产品经理的操作。</p>
+</blockquote>
+<blockquote>
+<p>(4)登入产品经理的github</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120300.png" alt=""></p>
+<p>查看来自java-ivanLi的<code>Pull request</code></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120307.png" alt=""></p>
+<p>下一步,产品经理回复<code>java-ivanLi</code></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120316.png" alt=""></p>
+<p>审核代码</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120324.png" alt=""></p>
+<p>确认代码没有bug,是好的建议,进行合并</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120334.png" alt=""></p>
+<p>输入合并的备注信息</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120342.png" alt=""></p>
+<p>合并后的状态</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200523120353.png" alt=""></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2018/05/03/Git/43/">https://zysheep.cn/2018/05/03/Git/43/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三漫画</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2018/05/04/Git/44/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/bug.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Git遇到的问题</div></div></a></div><div class="next-post pull_right"><a href="/2018/05/02/Git/42/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/git.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Git</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018/05/04/Git/44/" title="Git遇到的问题"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/bug.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-05-04</div><div class="relatedPosts_title">Git遇到的问题</div></div></a></div><div class="relatedPosts_item"><a href="/2018/05/02/Git/42/" title="Git"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/git.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-05-02</div><div class="relatedPosts_title">Git</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/gihub.jfif)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
