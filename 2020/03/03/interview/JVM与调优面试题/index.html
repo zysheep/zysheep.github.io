@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JVM与调优面试题 | 三月三</title><meta name="description" content="JVM与调优面试题一、JVM 内存区域划分1.程序计数器（线程私有）程序计数器（Program Counter Register），也有称作为 PC 寄存器。保存的是程序当前执行的指令的地址（也可以说保存下一条指令的所在存储单元的地址），当 CPU 需要执行指令时，需要从程序计数器中得到当前需要执行的指令所在存储单元的地址，然后根据得到的地址获取到指令，在得到指令之后，程序计数器便自动加 1 或者"><meta name="keywords" content="面试宝典"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="JVM与调优面试题"><meta name="twitter:description" content="JVM与调优面试题一、JVM 内存区域划分1.程序计数器（线程私有）程序计数器（Program Counter Register），也有称作为 PC 寄存器。保存的是程序当前执行的指令的地址（也可以说保存下一条指令的所在存储单元的地址），当 CPU 需要执行指令时，需要从程序计数器中得到当前需要执行的指令所在存储单元的地址，然后根据得到的地址获取到指令，在得到指令之后，程序计数器便自动加 1 或者"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/1624x1160.jfif"><meta property="og:type" content="article"><meta property="og:title" content="JVM与调优面试题"><meta property="og:url" content="https://zysheep.cn/2020/03/03/interview/JVM%E4%B8%8E%E8%B0%83%E4%BC%98%E9%9D%A2%E8%AF%95%E9%A2%98/"><meta property="og:site_name" content="三月三"><meta property="og:description" content="JVM与调优面试题一、JVM 内存区域划分1.程序计数器（线程私有）程序计数器（Program Counter Register），也有称作为 PC 寄存器。保存的是程序当前执行的指令的地址（也可以说保存下一条指令的所在存储单元的地址），当 CPU 需要执行指令时，需要从程序计数器中得到当前需要执行的指令所在存储单元的地址，然后根据得到的地址获取到指令，在得到指令之后，程序计数器便自动加 1 或者"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/1624x1160.jfif"><meta property="article:published_time" content="2020-03-02T16:00:00.000Z"><meta property="article:modified_time" content="2020-05-30T05:17:21.288Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2020/03/03/interview/JVM%E4%B8%8E%E8%B0%83%E4%BC%98%E9%9D%A2%E8%AF%95%E9%A2%98/"><link rel="prev" title="Dubbo面试题" href="https://zysheep.cn/2020/03/03/interview/Dubbo%E9%9D%A2%E8%AF%95%E9%A2%98/"><link rel="next" title="ElasticSearch面试题" href="https://zysheep.cn/2020/03/03/interview/ElasticSearch%E9%9D%A2%E8%AF%95%E9%A2%98/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">133</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">37</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">52</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JVM与调优面试题"><span class="toc-number">1.</span> <span class="toc-text">JVM与调优面试题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、JVM-内存区域划分"><span class="toc-number">1.1.</span> <span class="toc-text">一、JVM 内存区域划分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-程序计数器（线程私有）"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.程序计数器（线程私有）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、JVM-执行子系统"><span class="toc-number">1.2.</span> <span class="toc-text">二、JVM 执行子系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Class-类文件结构"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.Class 类文件结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-垃圾回收器和内存分配策略"><span class="toc-number">1.3.</span> <span class="toc-text">三.垃圾回收器和内存分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-基本垃圾回收算法"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.基本垃圾回收算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、编写高效优雅-Java-程序"><span class="toc-number">1.4.</span> <span class="toc-text">四、编写高效优雅 Java 程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-面向对象"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.面向对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、性能优化"><span class="toc-number">1.5.</span> <span class="toc-text">五、性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-常用的性能评价-测试指标"><span class="toc-number">1.5.1.</span> <span class="toc-text">1.常用的性能评价&#x2F;测试指标</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/1624x1160.jfif)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">JVM与调优面试题</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-03-03 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-03-03</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-30 13:17:21"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/">面试宝典</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/JVM%E4%B8%8E%E8%B0%83%E4%BC%98%E9%9D%A2%E8%AF%95%E9%A2%98/">JVM与调优面试题</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.7k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 8 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2020/03/03/interview/JVM%E4%B8%8E%E8%B0%83%E4%BC%98%E9%9D%A2%E8%AF%95%E9%A2%98/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="JVM与调优面试题"><a href="#JVM与调优面试题" class="headerlink" title="JVM与调优面试题"></a>JVM与调优面试题</h1><h2 id="一、JVM-内存区域划分"><a href="#一、JVM-内存区域划分" class="headerlink" title="一、JVM 内存区域划分"></a>一、JVM 内存区域划分</h2><h3 id="1-程序计数器（线程私有）"><a href="#1-程序计数器（线程私有）" class="headerlink" title="1.程序计数器（线程私有）"></a>1.程序计数器（线程私有）</h3><p>程序计数器（Program Counter Register），也有称作为 PC 寄存器。保存的是程序当前执行的指令的地址（也可以说保存下一条指令的所在存储单元的地址），当 CPU 需要执行指令时，需要从程序计数器中得到当前需要执行的指令所在存储单元的地址，然后根据得到的地址获取到指令，在得到指令之后，程序计数器便自动加 1 或者根据转移指针得到下一条指令的地址，如此循环，直至执行完所有的指令。也就是说是用来指示执行哪条指令的。</p>
+<p>由于在 JVM 中，多线程是通过线程轮流切换来获得 CPU 执行时间的，因此，在任一具体时刻，一个 CPU 的内核只会执行一条线程中的指令，因此，为了能够使得每个线程都在线程切换后能够恢复在切换之前的程序执行位置，每个线程都需要有自己独立的程序计数器，并且不能互相被干扰，否则就会影响到程序的正常执行次序。因此，可以这么说，程序计数器是每个线程所私有的。</p>
+<p>在 JVM 规范中规定，如果线程执行的是非 native 方法，则程序计数器中保存的是当前需要执行的指令的地址；如果线程执行的是 native 方法，则程序计数器中的值是 undefined。</p>
+<p>由于程序计数器中存储的数据所占空间的大小不会随程序的执行而发生改变，因此，对于程序计数器是不会发生内存溢出现象(OutOfMemory)的。</p>
+<p>异常情况：</p>
+<p>不存在</p>
+<p>2.Java 栈（线程私有）</p>
+<p>3.本地方法栈（线程私有）</p>
+<p>4.堆（线程共享）</p>
+<p>5.方法区（线程共享）</p>
+<p>6.直接内存（线程共享）</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb2745d3618?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h2 id="二、JVM-执行子系统"><a href="#二、JVM-执行子系统" class="headerlink" title="二、JVM 执行子系统"></a>二、JVM 执行子系统</h2><h3 id="1-Class-类文件结构"><a href="#1-Class-类文件结构" class="headerlink" title="1.Class 类文件结构"></a>1.Class 类文件结构</h3><p>1.1 Java 跨平台的基础</p>
+<p>各种不同平台的虚拟机与所有平台都统一使用的程序存储格式——字节码（ByteCode）是构成平台无关性的基石，也是语言无关性的基础。Java 虚拟机不和包括 Java 在内的任何语言绑定，它只与“Class 文件”这种特定的二进制文件格式所关联，Class 文件中包含了 Java虚拟机指令集和符号表以及若干其他辅助信息。</p>
+<p>1.2 Class 类的本质</p>
+<p>任何一个 Class 文件都对应着唯一一个类或接口的定义信息，但反过来说，Class 文件实际上它并不一定以磁盘文件的形式存在。Class 文件是一组以 8 位字节为基础单位的二进制流。</p>
+<p>1.3 Class 文件格式</p>
+<p>各个数据项目严格按照顺序紧凑地排列在 Class 文件之中，中间没有添加任何分隔符，这使得整个 Class 文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。Class 文件格式采用一种类似于 C 语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：无符号数和表。</p>
+<p>无符号数属于基本的数据类型，以 u1、u2、u4、u8 来分别代表 1 个字节、2 个字节、4 个字节和 8 个字节的无符号数，无符号数可以用来描述数字、索引引用、数量值或者按照 UTF-8编码构成字符串值。</p>
+<p>表是由多个无符号数或者其他表作为数据项构成的复合数据类型，所有表都习惯性地以“_info”结尾。表用于描述有层次关系的复合结构的数据，整个 Class 文件本质上就是一张表。</p>
+<p>2.字节码指令</p>
+<p>2.1 加载和存储指令</p>
+<p>2.2 运算或算术指令</p>
+<p>2.3 类型转换指令</p>
+<p>2.4 创建类实例的指令</p>
+<p>2.5 创建数组的指令</p>
+<p>2.6 访问字段指令</p>
+<p>2.7 数组存取相关指令</p>
+<p>2.8 检查类实例类型的指令</p>
+<p>2.9 操作数栈管理指令</p>
+<p>2.10 控制转移指令</p>
+<p>2.11 方法调用指令</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb27488e597?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>2.12 方法返回指令</p>
+<p>2.13 异常处理指令</p>
+<p>2.14 同步指令</p>
+<p>3.类加载机制</p>
+<p>4.类加载器</p>
+<p>4.1 系统的类加载器</p>
+<p>4.2 双亲委派模型</p>
+<p>5.Tomcat 类加载机制</p>
+<p>6.方法调用详解</p>
+<p>6.1 解析</p>
+<p>6.2 静态分派</p>
+<p>6.3 动态分派</p>
+<p>6.4 基于栈的字节码解释执行引擎</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb274e302bc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h2 id="三-垃圾回收器和内存分配策略"><a href="#三-垃圾回收器和内存分配策略" class="headerlink" title="三.垃圾回收器和内存分配策略"></a>三.垃圾回收器和内存分配策略</h2><p>1.Java 中是值传递还是引用传递？</p>
+<p>2.引用类型</p>
+<h3 id="3-基本垃圾回收算法"><a href="#3-基本垃圾回收算法" class="headerlink" title="3.基本垃圾回收算法"></a>3.基本垃圾回收算法</h3><p>3.1.1 引用计数（Reference Counting）:</p>
+<p>比较古老的回收算法。原理是此对象有一个引用，即增加一个计数，删除一个引用则减少一个计数。垃圾回收时，只用收集计数为 0 的对象。此算法最致命的是无法处理循环引用的问题。</p>
+<p>3.1.2 可达性分析清理</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb27848e44a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>标记-清除（Mark-Sweep）:此算法执行分两阶段。第一阶段从引用根节点开始标记所有被引用的对象，第二阶段遍历整个堆，把未标记的对象清除。此算法需要暂停整个应用，同时，会产生内存碎片。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb27b3ea4f5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>复制（Copying）: 此算法把内存空间划为两个相等的区域，每次只使用其中一个区域。垃圾回收时，遍历当前使用区域，把正在使用中的对象复制到另外一个区域中。次算法每次只处理正在使用中的对象，因此复制成本比较小，同时复制过去以后还能进行相应的内存整理，不会出现“碎片”问题。当然，此算法的缺点也是很明显的，就是需要两倍内存空间。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb29e811254?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>标记-整理（Mark-Compact）:此算法结合了“标记-清除”和“复制”两个算法的优点。也是分两阶段，第一阶段从根节点开始标记所有被引用对象，第二阶段遍历整个堆，清除标记对象，并未标记对象并且把存活对象“压缩”到堆的其中一块，按顺序排放。此算法避免了“标记-清除”的碎片问题，同时也避免了“复制”算法的空间问题。</p>
+<p>3.1 按照基本回收策略分</p>
+<p>3.2 按分区对待的方式分</p>
+<p>3.3 按系统线程分</p>
+<p>4.分代处理垃圾</p>
+<p>5.JAVA 中垃圾回收 GC 的类型</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb2a0a08dc2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h2 id="四、编写高效优雅-Java-程序"><a href="#四、编写高效优雅-Java-程序" class="headerlink" title="四、编写高效优雅 Java 程序"></a>四、编写高效优雅 Java 程序</h2><h3 id="1-面向对象"><a href="#1-面向对象" class="headerlink" title="1.面向对象"></a>1.面向对象</h3><p>1.1 构造器参数太多怎么办？</p>
+<p>用 builder 模式，用在</p>
+<p>（1）5 个或者 5 个以上的成员变量</p>
+<p>（2）参数不多，但是在未来，参数会增加</p>
+<p>Builder 模式：</p>
+<p>属于对象的创建模式，一般有</p>
+<p>（1）抽象建造者：一般来说是个接口，包含</p>
+<p>1）建造方法，建造部件的方法（不止一个）</p>
+<p>2）返回产品的方法</p>
+<p>（2） 具体建造者</p>
+<p>（3） 导演者，调用具体的建造者，创建产品对象</p>
+<p>（4）产品，需要建造的复杂对象</p>
+<p>对于客户端，创建导演者和具体建造者，并把具体建造者交给导演者，然后由客户端通知导演者操纵建造者进行产品的创建。</p>
+<p>在实际的应用过程中，有时会省略抽象建造者和导演者。</p>
+<p>1.2 不需要实例化的类应该构造器私有</p>
+<p>1.3 不要创建不必要的对象</p>
+<p>1.4 避免使用终结方法</p>
+<p>1.5 使类和成员的可访问性最小化</p>
+<p>1.6 使可变性最小化</p>
+<p>1.7 复合优先于继承</p>
+<p>1.8 接口优于抽象类</p>
+<p>2.方法</p>
+<p>2.1 可变参数要谨慎使用</p>
+<p>2.2 返回零长度的数组或集合，不要返回 null</p>
+<p>2.3 优先使用标准的异常</p>
+<p>3.通用程序设计</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb2a0e97dbd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h2 id="五、性能优化"><a href="#五、性能优化" class="headerlink" title="五、性能优化"></a>五、性能优化</h2><p>一个 web 应用不是一个孤立的个体，它是一个系统的部分，系统中的每一部分都会影响整</p>
+<p>个系统的性能</p>
+<h3 id="1-常用的性能评价-测试指标"><a href="#1-常用的性能评价-测试指标" class="headerlink" title="1.常用的性能评价/测试指标"></a>1.常用的性能评价/测试指标</h3><p>1.1 响应时间</p>
+<p>提交请求和返回该请求的响应之间使用的时间，一般比较关注平均响应时间。</p>
+<p>常用操作的响应时间列表：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb2a43ed266?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>1.2 并发数</p>
+<p>同一时刻，对服务器有实际交互的请求数。</p>
+<p>和网站在线用户数的关联：1000 个同时在线用户数，可以估计并发数在 5%到 15%之间，也就是同时并发数在 50~150 之间。</p>
+<p>1.3 吞吐量</p>
+<p>对单位时间内完成的工作量(请求)的量度</p>
+<p>1.4 关系</p>
+<p>系统吞吐量和系统并发数以及响应时间的关系：</p>
+<p>理解为高速公路的通行状况：</p>
+<p>吞吐量是每天通过收费站的车辆数目（可以换算成收费站收取的高速费），并发数是高速公路上的正在行驶的车辆数目，响应时间是车速。车辆很少时，车速很快。但是收到的高速费也相应较少；</p>
+<p>随着高速公路上车辆数目的增多，车速略受影响，但是收到的高速费增加很快；</p>
+<p>随着车辆的继续增加，车速变得越来越慢，高速公路越来越堵，收费不增反降；</p>
+<p>如果车流量继续增加，超过某个极限后，任务偶然因素都会导致高速全部瘫痪，车走不动，当然后也收不着，而高速公路成了停车场（资源耗尽）。</p>
+<p>2.常用的性能优化手段</p>
+<p>2.1 避免过早优化</p>
+<p>2.2 进行系统性能测试</p>
+<p>2.3 寻找系统瓶颈，分而治之，逐步优化</p>
+<p>2.4 前端优化常用手段</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb2a83e9890?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>3 应用服务性能优化</p>
+<p>3.1 缓存</p>
+<p>3.1.1 缓存的基本原理和本质</p>
+<p>3.1.2 合理使用缓冲的准则</p>
+<p>3.1.3 分布式缓存与一致性哈希</p>
+<p>3.2 异步</p>
+<p>3.2.1 同步和异步，阻塞和非阻塞</p>
+<p>3.2.2 常见异步的手段</p>
+<p>3.3 集群</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/4/1700fbb2ab9eacb2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>3.4 应用相关</p>
+<p>3.4.1 代码级别</p>
+<p>3.4.2 并发编程</p>
+<p>3.4.3 资源的复用</p>
+<p>3.4.4 JVM</p>
+<p>3.4.5 GC 调优</p>
+<p>3.4.6 调优实战</p>
+<p>3.4.7 存储性能优化</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2020/03/03/interview/JVM%E4%B8%8E%E8%B0%83%E4%BC%98%E9%9D%A2%E8%AF%95%E9%A2%98/">https://zysheep.cn/2020/03/03/interview/JVM与调优面试题/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/">面试宝典</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/03/03/interview/Dubbo%E9%9D%A2%E8%AF%95%E9%A2%98/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/feature_maintenance.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Dubbo面试题</div></div></a></div><div class="next-post pull_right"><a href="/2020/03/03/interview/ElasticSearch%E9%9D%A2%E8%AF%95%E9%A2%98/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1938797.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ElasticSearch面试题</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/03/03/interview/Java基础面试题(二)/" title="Java 面试题（二）"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1801x1200.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Java 面试题（二）</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Java并发编程面试题/" title="Java并发编程"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1920x1018.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Java并发编程</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Spring面试题/" title="Spring系列面试题"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring_logo.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Spring系列面试题</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/redis面试题/" title="Redis面试题"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/redis-logo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Redis面试题</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Java基础面试题(一)/" title="Java面试题(一)"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1801x1200.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Java面试题(一)</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Dubbo面试题/" title="Dubbo面试题"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/feature_maintenance.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Dubbo面试题</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/1624x1160.jfif)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>

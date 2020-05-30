@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpringBoot面试题 | 三月三</title><meta name="description" content="Spring Boot面试题Spring Boot 面试题1、什么是 Spring Boot？ 2、Spring Boot 有哪些优点？ 3、什么是 JavaConfig？ 4、如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？ 5、Spring Boot 中的监视器是什么？ 6、如何在 Spring Boot 中禁用 Actuator 端点安全性？ 7、如何在自定义端口上运行"><meta name="keywords" content="面试宝典"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="SpringBoot面试题"><meta name="twitter:description" content="Spring Boot面试题Spring Boot 面试题1、什么是 Spring Boot？ 2、Spring Boot 有哪些优点？ 3、什么是 JavaConfig？ 4、如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？ 5、Spring Boot 中的监视器是什么？ 6、如何在 Spring Boot 中禁用 Actuator 端点安全性？ 7、如何在自定义端口上运行"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><meta property="og:type" content="article"><meta property="og:title" content="SpringBoot面试题"><meta property="og:url" content="https://zysheep.cn/2020/03/03/interview/Spring%20Boot%E9%9D%A2%E8%AF%95%E9%A2%98/"><meta property="og:site_name" content="三月三"><meta property="og:description" content="Spring Boot面试题Spring Boot 面试题1、什么是 Spring Boot？ 2、Spring Boot 有哪些优点？ 3、什么是 JavaConfig？ 4、如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？ 5、Spring Boot 中的监视器是什么？ 6、如何在 Spring Boot 中禁用 Actuator 端点安全性？ 7、如何在自定义端口上运行"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><meta property="article:published_time" content="2020-03-02T16:00:00.000Z"><meta property="article:modified_time" content="2020-05-30T05:17:39.186Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2020/03/03/interview/Spring%20Boot%E9%9D%A2%E8%AF%95%E9%A2%98/"><link rel="prev" title="SpringCloud面试题" href="https://zysheep.cn/2020/03/03/interview/SpringCloud%E9%9D%A2%E8%AF%95%E9%A2%98/"><link rel="next" title="ZooKeeper面试题" href="https://zysheep.cn/2020/03/03/interview/ZooKeeper%E9%9D%A2%E8%AF%95%E9%A2%98/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">133</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">37</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">52</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring-Boot面试题"><span class="toc-number">1.</span> <span class="toc-text">Spring Boot面试题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Boot-面试题"><span class="toc-number">1.1.</span> <span class="toc-text">Spring Boot 面试题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、什么是-Spring-Boot？"><span class="toc-number">1.2.</span> <span class="toc-text">1、什么是 Spring Boot？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Spring-Boot-有哪些优点？"><span class="toc-number">1.3.</span> <span class="toc-text">2、Spring Boot 有哪些优点？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、什么是-JavaConfig？"><span class="toc-number">1.4.</span> <span class="toc-text">3、什么是 JavaConfig？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、如何重新加载-Spring-Boot-上的更改，而无需重新启动服务器？"><span class="toc-number">1.5.</span> <span class="toc-text">4、如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、Spring-Boot-中的监视器是什么？"><span class="toc-number">1.6.</span> <span class="toc-text">5、Spring Boot 中的监视器是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、如何在-Spring-Boot-中禁用-Actuator-端点安全性？"><span class="toc-number">1.7.</span> <span class="toc-text">6、如何在 Spring Boot 中禁用 Actuator 端点安全性？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、如何在自定义端口上运行-Spring-Boot-应用程序？"><span class="toc-number">1.8.</span> <span class="toc-text">7、如何在自定义端口上运行 Spring Boot 应用程序？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、什么是-YAML？"><span class="toc-number">1.9.</span> <span class="toc-text">8、什么是 YAML？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9、如何实现-Spring-Boot-应用程序的安全性？"><span class="toc-number">1.10.</span> <span class="toc-text">9、如何实现 Spring Boot 应用程序的安全性？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10、如何集成-Spring-Boot-和-ActiveMQ？"><span class="toc-number">1.11.</span> <span class="toc-text">10、如何集成 Spring Boot 和 ActiveMQ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11、如何使用-Spring-Boot-实现分页和排序？"><span class="toc-number">1.12.</span> <span class="toc-text">11、如何使用 Spring Boot 实现分页和排序？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12、什么是-Swagger？你用-Spring-Boot-实现了它吗？"><span class="toc-number">1.13.</span> <span class="toc-text">12、什么是 Swagger？你用 Spring Boot 实现了它吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13、什么是-Spring-Profiles？"><span class="toc-number">1.14.</span> <span class="toc-text">13、什么是 Spring Profiles？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14、什么是-Spring-Batch？"><span class="toc-number">1.15.</span> <span class="toc-text">14、什么是 Spring Batch？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15、什么是-FreeMarker-模板？"><span class="toc-number">1.16.</span> <span class="toc-text">15、什么是 FreeMarker 模板？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16、如何使用-Spring-Boot-实现异常处理？"><span class="toc-number">1.17.</span> <span class="toc-text">16、如何使用 Spring Boot 实现异常处理？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17、您使用了哪些-starter-maven-依赖项？"><span class="toc-number">1.18.</span> <span class="toc-text">17、您使用了哪些 starter maven 依赖项？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18、什么是-CSRF-攻击？"><span class="toc-number">1.19.</span> <span class="toc-text">18、什么是 CSRF 攻击？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19、什么是-WebSockets？"><span class="toc-number">1.20.</span> <span class="toc-text">19、什么是 WebSockets？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20、什么是-AOP？"><span class="toc-number">1.21.</span> <span class="toc-text">20、什么是 AOP？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21、什么是-Apache-Kafka？"><span class="toc-number">1.22.</span> <span class="toc-text">21、什么是 Apache Kafka？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22、我们如何监视所有-Spring-Boot-微服务？"><span class="toc-number">1.23.</span> <span class="toc-text">22、我们如何监视所有 Spring Boot 微服务？</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/tech-spring-boot.width-1024.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">SpringBoot面试题</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-03-03 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-03-03</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-30 13:17:39"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/">面试宝典</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/Spring-Boot%E9%9D%A2%E8%AF%95%E9%A2%98/">Spring Boot面试题</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">3.1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 9 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2020/03/03/interview/Spring%20Boot%E9%9D%A2%E8%AF%95%E9%A2%98/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Spring-Boot面试题"><a href="#Spring-Boot面试题" class="headerlink" title="Spring Boot面试题"></a>Spring Boot面试题</h1><h2 id="Spring-Boot-面试题"><a href="#Spring-Boot-面试题" class="headerlink" title="Spring Boot 面试题"></a>Spring Boot 面试题</h2><p>1、什么是 Spring Boot？</p>
+<p>2、Spring Boot 有哪些优点？</p>
+<p>3、什么是 JavaConfig？</p>
+<p>4、如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？</p>
+<p>5、Spring Boot 中的监视器是什么？</p>
+<p>6、如何在 Spring Boot 中禁用 Actuator 端点安全性？</p>
+<p>7、如何在自定义端口上运行 Spring Boot 应用程序？</p>
+<p>8、什么是 YAML？</p>
+<p>9、如何实现 Spring Boot 应用程序的安全性？</p>
+<p>10、如何集成 Spring Boot 和 ActiveMQ？</p>
+<p>11、如何使用 Spring Boot 实现分页和排序？</p>
+<p>12、什么是 Swagger？你用 Spring Boot 实现了它吗？</p>
+<p>13、什么是 Spring Profiles？</p>
+<p>14、什么是 Spring Batch？</p>
+<p>15、什么是 FreeMarker 模板？</p>
+<p>16、如何使用 Spring Boot 实现异常处理？</p>
+<p>17、您使用了哪些 starter maven 依赖项？</p>
+<p>18、什么是 CSRF 攻击？</p>
+<p>19、什么是 WebSockets？</p>
+<p>20、什么是 AOP？</p>
+<p>21、什么是 Apache Kafka？</p>
+<p>22、我们如何监视所有 Spring Boot 微服务？</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/11/26/16ea6ebbb37e4143?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h2 id="1、什么是-Spring-Boot？"><a href="#1、什么是-Spring-Boot？" class="headerlink" title="1、什么是 Spring Boot？"></a>1、什么是 Spring Boot？</h2><p>多年来，随着新功能的增加，spring 变得越来越复杂。访问spring官网页面，我们就会看到可以在我们的应用程序中使用的所有 Spring 项目的不同功能。如果必须启动一个新的 Spring 项目，我们必须添加构建路径或添加 Maven 依赖关系，配置应用程序服务器，添加 spring 配置。因此，开始一个新的 spring 项目需要很多努力，因为我们现在必须从头开始做所有事情。</p>
+<p>Spring Boot 是解决这个问题的方法。Spring Boot 已经建立在现有 spring 框架之上。使用 spring 启动，我们避免了之前我们必须做的所有样板代码和配置。因此，Spring Boot 可以帮助我们以最少的工作量，更加健壮地使用现有的 Spring功能。</p>
+<h2 id="2、Spring-Boot-有哪些优点？"><a href="#2、Spring-Boot-有哪些优点？" class="headerlink" title="2、Spring Boot 有哪些优点？"></a>2、Spring Boot 有哪些优点？</h2><p>Spring Boot 的优点有：</p>
+<p>1、减少开发，测试时间和努力。</p>
+<p>2、使用 JavaConfig 有助于避免使用 XML。</p>
+<p>3、避免大量的 Maven 导入和各种版本冲突。</p>
+<p>4、提供意见发展方法。</p>
+<p>5、通过提供默认值快速开始开发。</p>
+<p>6、没有单独的 Web 服务器需要。这意味着你不再需要启动 Tomcat，Glassfish或其他任何东西。</p>
+<p>7、需要更少的配置 因为没有 web.xml 文件。只需添加用@ Configuration 注释的类，然后添加用@Bean 注释的方法，Spring 将自动加载对象并像以前一样对其进行管理。您甚至可以将@Autowired 添加到 bean 方法中，以使 Spring 自动装入需要的依赖关系中。</p>
+<p>8、基于环境的配置 使用这些属性，您可以将您正在使用的环境传递到应用程序：-Dspring.profiles.active = {enviornment}。在加载主应用程序属性文件后，Spring 将在（application{environment} .properties）中加载后续的应用程序属性文件。</p>
+<h2 id="3、什么是-JavaConfig？"><a href="#3、什么是-JavaConfig？" class="headerlink" title="3、什么是 JavaConfig？"></a>3、什么是 JavaConfig？</h2><p>Spring JavaConfig 是 Spring 社区的产品，它提供了配置 Spring IoC 容器的纯Java 方法。因此它有助于避免使用 XML 配置。使用 JavaConfig 的优点在于：</p>
+<p>（1）面向对象的配置。由于配置被定义为 JavaConfig 中的类，因此用户可以充分利用 Java 中的面向对象功能。一个配置类可以继承另一个，重写它的@Bean 方法等。</p>
+<p>（2）减少或消除 XML 配置。基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员不希望在 XML 和 Java 之间来回切换。JavaConfig 为开发人员提供了一种纯 Java 方法来配置与 XML 配置概念相似的 Spring 容器。从技术角度来讲，只使用 JavaConfig 配置类来配置容器是可行的，但实际上很多人认为将JavaConfig 与 XML 混合匹配是理想的。</p>
+<p>（3）类型安全和重构友好。JavaConfig 提供了一种类型安全的方法来配置 Spring容器。由于 Java 5.0 对泛型的支持，现在可以按类型而不是按名称检索 bean，不需要任何强制转换或基于字符串的查找。</p>
+<h2 id="4、如何重新加载-Spring-Boot-上的更改，而无需重新启动服务器？"><a href="#4、如何重新加载-Spring-Boot-上的更改，而无需重新启动服务器？" class="headerlink" title="4、如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？"></a>4、如何重新加载 Spring Boot 上的更改，而无需重新启动服务器？</h2><p>这可以使用 DEV 工具来实现。通过这种依赖关系，您可以节省任何更改，嵌入式tomcat 将重新启动。Spring Boot 有一个开发工具（DevTools）模块，它有助于提高开发人员的生产力。Java 开发人员面临的一个主要挑战是将文件更改自动部署到服务器并自动重启服务器。开发人员可以重新加载 Spring Boot 上的更改，而无需重新启动服务器。这将消除每次手动部署更改的需要。Spring Boot 在发布它的第一个版本时没有这个功能。这是开发人员最需要的功能。DevTools 模块完全满足开发人员的需求。该模块将在生产环境中被禁用。它还提供 H2 数据库控制台以更好地测试应用程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;spring-boot-devtools&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;optional&gt;true&lt;&#x2F;optional&gt;复制代码</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、Spring-Boot-中的监视器是什么？"><a href="#5、Spring-Boot-中的监视器是什么？" class="headerlink" title="5、Spring Boot 中的监视器是什么？"></a>5、Spring Boot 中的监视器是什么？</h2><p>Spring boot actuator 是 spring 启动框架中的重要功能之一。Spring boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。有几个指标必须在生产环境中进行检查和监控。即使一些外部应用程序可能正在使用这些服务来向相关人员触发警报消息。监视器模块公开了一组可直接作为 HTTP URL 访问的REST 端点来检查状态。</p>
+<h2 id="6、如何在-Spring-Boot-中禁用-Actuator-端点安全性？"><a href="#6、如何在-Spring-Boot-中禁用-Actuator-端点安全性？" class="headerlink" title="6、如何在 Spring Boot 中禁用 Actuator 端点安全性？"></a>6、如何在 Spring Boot 中禁用 Actuator 端点安全性？</h2><p>默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATOR 角色的用户才能访问它们。安全性是使用标准的 HttpServletRequest.isUserInRole 方法实施的。 我们可以使用来禁用安全性。只有在执行机构端点在防火墙后访问时，才建议禁用安全性。</p>
+<h2 id="7、如何在自定义端口上运行-Spring-Boot-应用程序？"><a href="#7、如何在自定义端口上运行-Spring-Boot-应用程序？" class="headerlink" title="7、如何在自定义端口上运行 Spring Boot 应用程序？"></a>7、如何在自定义端口上运行 Spring Boot 应用程序？</h2><p>为了在自定义端口上运行 Spring Boot 应用程序，您可以在application.properties 中指定端口。server.port = 8090</p>
+<h2 id="8、什么是-YAML？"><a href="#8、什么是-YAML？" class="headerlink" title="8、什么是 YAML？"></a>8、什么是 YAML？</h2><p>YAML 是一种人类可读的数据序列化语言。它通常用于配置文件。与属性文件相比，如果我们想要在配置文件中添加复杂的属性，YAML 文件就更加结构化，而且更少混淆。可以看出 YAML 具有分层配置数据。</p>
+<h2 id="9、如何实现-Spring-Boot-应用程序的安全性？"><a href="#9、如何实现-Spring-Boot-应用程序的安全性？" class="headerlink" title="9、如何实现 Spring Boot 应用程序的安全性？"></a>9、如何实现 Spring Boot 应用程序的安全性？</h2><p>为了实现 Spring Boot 的安全性，我们使用 spring-boot-starter-security 依赖项，并且必须添加安全配置。它只需要很少的代码。配置类将必须扩展WebSecurityConfigurerAdapter 并覆盖其方法。</p>
+<h2 id="10、如何集成-Spring-Boot-和-ActiveMQ？"><a href="#10、如何集成-Spring-Boot-和-ActiveMQ？" class="headerlink" title="10、如何集成 Spring Boot 和 ActiveMQ？"></a>10、如何集成 Spring Boot 和 ActiveMQ？</h2><p>对于集成 Spring Boot 和 ActiveMQ，我们使用依赖关系。 它只需要很少的配置，并且不需要样板代码。</p>
+<h2 id="11、如何使用-Spring-Boot-实现分页和排序？"><a href="#11、如何使用-Spring-Boot-实现分页和排序？" class="headerlink" title="11、如何使用 Spring Boot 实现分页和排序？"></a>11、如何使用 Spring Boot 实现分页和排序？</h2><p>使用 Spring Boot 实现分页非常简单。使用 Spring Data-JPA 可以实现将可分页的传递给存储库方法。</p>
+<h2 id="12、什么是-Swagger？你用-Spring-Boot-实现了它吗？"><a href="#12、什么是-Swagger？你用-Spring-Boot-实现了它吗？" class="headerlink" title="12、什么是 Swagger？你用 Spring Boot 实现了它吗？"></a>12、什么是 Swagger？你用 Spring Boot 实现了它吗？</h2><p>Swagger 广泛用于可视化 API，使用 Swagger UI 为前端开发人员提供在线沙箱。Swagger 是用于生成 RESTful Web 服务的可视化表示的工具，规范和完整框架实现。它使文档能够以与服务器相同的速度更新。当通过 Swagger 正确定义时，消费者可以使用最少量的实现逻辑来理解远程服务并与其进行交互。因此，Swagger消除了调用服务时的猜测。</p>
+<h2 id="13、什么是-Spring-Profiles？"><a href="#13、什么是-Spring-Profiles？" class="headerlink" title="13、什么是 Spring Profiles？"></a>13、什么是 Spring Profiles？</h2><p>Spring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在 PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。</p>
+<h2 id="14、什么是-Spring-Batch？"><a href="#14、什么是-Spring-Batch？" class="headerlink" title="14、什么是 Spring Batch？"></a>14、什么是 Spring Batch？</h2><p>Spring Boot Batch 提供可重用的函数，这些函数在处理大量记录时非常重要，包括日志/跟踪，事务管理，作业处理统计信息，作业重新启动，跳过和资源管理。它还提供了更先进的技术服务和功能，通过优化和分区技术，可以实现极高批量和高性能批处理作业。简单以及复杂的大批量批处理作业可以高度可扩展的方式利用框架处理重要大量的信息。</p>
+<h2 id="15、什么是-FreeMarker-模板？"><a href="#15、什么是-FreeMarker-模板？" class="headerlink" title="15、什么是 FreeMarker 模板？"></a>15、什么是 FreeMarker 模板？</h2><p>FreeMarker 是一个基于 Java 的模板引擎，最初专注于使用 MVC 软件架构进行动态网页生成。使用 Freemarker 的主要优点是表示层和业务层的完全分离。程序员可以处理应用程序代码，而设计人员可以处理 html 页面设计。最后使用freemarker 可以将这些结合起来，给出最终的输出页面。</p>
+<h2 id="16、如何使用-Spring-Boot-实现异常处理？"><a href="#16、如何使用-Spring-Boot-实现异常处理？" class="headerlink" title="16、如何使用 Spring Boot 实现异常处理？"></a>16、如何使用 Spring Boot 实现异常处理？</h2><p>Spring 提供了一种使用 ControllerAdvice 处理异常的非常有用的方法。 我们通过实现一个 ControlerAdvice 类，来处理控制器类抛出的所有异常。</p>
+<h2 id="17、您使用了哪些-starter-maven-依赖项？"><a href="#17、您使用了哪些-starter-maven-依赖项？" class="headerlink" title="17、您使用了哪些 starter maven 依赖项？"></a>17、您使用了哪些 starter maven 依赖项？</h2><p>使用了下面的一些依赖项</p>
+<p>spring-boot-starter-activemq</p>
+<p>spring-boot-starter-security</p>
+<p>这有助于增加更少的依赖关系，并减少版本的冲突。</p>
+<h2 id="18、什么是-CSRF-攻击？"><a href="#18、什么是-CSRF-攻击？" class="headerlink" title="18、什么是 CSRF 攻击？"></a>18、什么是 CSRF 攻击？</h2><p>CSRF 代表跨站请求伪造。这是一种攻击，迫使最终用户在当前通过身份验证的Web 应用程序上执行不需要的操作。CSRF 攻击专门针对状态改变请求，而不是数据窃取，因为攻击者无法查看对伪造请求的响应。</p>
+<h2 id="19、什么是-WebSockets？"><a href="#19、什么是-WebSockets？" class="headerlink" title="19、什么是 WebSockets？"></a>19、什么是 WebSockets？</h2><p>WebSocket 是一种计算机通信协议，通过单个 TCP 连接提供全双工通信信道。</p>
+<p>1、WebSocket 是双向的 -使用 WebSocket 客户端或服务器可以发起消息发送。</p>
+<p>2、WebSocket 是全双工的 -客户端和服务器通信是相互独立的。</p>
+<p>3、单个 TCP 连接 -初始连接使用 HTTP，然后将此连接升级到基于套接字的连接。然后这个单一连接用于所有未来的通信</p>
+<p>4、Light -与 http 相比，WebSocket 消息数据交换要轻得多。</p>
+<h2 id="20、什么是-AOP？"><a href="#20、什么是-AOP？" class="headerlink" title="20、什么是 AOP？"></a>20、什么是 AOP？</h2><p>在软件开发过程中，跨越应用程序多个点的功能称为交叉问题。这些交叉问题与应用程序的主要业务逻辑不同。因此，将这些横切关注与业务逻辑分开是面向方面编程（AOP）的地方。</p>
+<h2 id="21、什么是-Apache-Kafka？"><a href="#21、什么是-Apache-Kafka？" class="headerlink" title="21、什么是 Apache Kafka？"></a>21、什么是 Apache Kafka？</h2><p>Apache Kafka 是一个分布式发布 - 订阅消息系统。它是一个可扩展的，容错的发布 - 订阅消息系统，它使我们能够构建分布式应用程序。这是一个 Apache 顶级项目。Kafka 适合离线和在线消息消费。</p>
+<h2 id="22、我们如何监视所有-Spring-Boot-微服务？"><a href="#22、我们如何监视所有-Spring-Boot-微服务？" class="headerlink" title="22、我们如何监视所有 Spring Boot 微服务？"></a>22、我们如何监视所有 Spring Boot 微服务？</h2><p>Spring Boot 提供监视器端点以监控各个微服务的度量。这些端点对于获取有关应用程序的信息（如它们是否已启动）以及它们的组件（如数据库等）是否正常运行很有帮助。但是，使用监视器的一个主要缺点或困难是，我们必须单独打开应用程序的知识点以了解其状态或健康状况。想象一下涉及 50 个应用程序的微服务，管理员将不得不击中所有 50 个应用程序的执行终端。为了帮助我们处理这种情况，我们将使用位于的开源项目。 它建立在 Spring Boot Actuator 之上，它提供了一个 Web UI，使我们能够可视化多个应用程序的度量。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2020/03/03/interview/Spring%20Boot%E9%9D%A2%E8%AF%95%E9%A2%98/">https://zysheep.cn/2020/03/03/interview/Spring Boot面试题/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/">面试宝典</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/03/03/interview/SpringCloud%E9%9D%A2%E8%AF%95%E9%A2%98/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SpringCloud面试题</div></div></a></div><div class="next-post pull_right"><a href="/2020/03/03/interview/ZooKeeper%E9%9D%A2%E8%AF%95%E9%A2%98/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/zk_logo_use2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ZooKeeper面试题</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/03/03/interview/Java基础面试题(二)/" title="Java 面试题（二）"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1801x1200.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Java 面试题（二）</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Java并发编程面试题/" title="Java并发编程"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1920x1018.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Java并发编程</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Spring面试题/" title="Spring系列面试题"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring_logo.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Spring系列面试题</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/redis面试题/" title="Redis面试题"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/redis-logo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Redis面试题</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Java基础面试题(一)/" title="Java面试题(一)"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/1801x1200.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Java面试题(一)</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/interview/Dubbo面试题/" title="Dubbo面试题"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/feature_maintenance.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">Dubbo面试题</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/tech-spring-boot.width-1024.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
