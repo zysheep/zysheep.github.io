@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpringBoot整合rabbitMQ | 三月三</title><meta name="description" content="图片来自尚硅谷  SpringBoot与消息概述 大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力 消息服务中两个重要概念： 消息代理（message broker）和目的地（destination）:当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。 消息队列主要有两种形式的目的地 队列（queue）：点对点消息通信（point-to-point）"><meta name="keywords" content="Spring,Spring Boot2.2.2"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="SpringBoot整合rabbitMQ"><meta name="twitter:description" content="图片来自尚硅谷  SpringBoot与消息概述 大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力 消息服务中两个重要概念： 消息代理（message broker）和目的地（destination）:当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。 消息队列主要有两种形式的目的地 队列（queue）：点对点消息通信（point-to-point）"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><meta property="og:type" content="article"><meta property="og:title" content="SpringBoot整合rabbitMQ"><meta property="og:url" content="https://zysheep.cn/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-amqp/"><meta property="og:site_name" content="三月三"><meta property="og:description" content="图片来自尚硅谷  SpringBoot与消息概述 大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力 消息服务中两个重要概念： 消息代理（message broker）和目的地（destination）:当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。 消息队列主要有两种形式的目的地 队列（queue）：点对点消息通信（point-to-point）"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><meta property="article:published_time" content="2020-03-03T02:30:45.000Z"><meta property="article:modified_time" content="2020-06-03T09:48:11.731Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-amqp/"><link rel="prev" title="SpringBoot整合JPA" href="https://zysheep.cn/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-Jpa/"><link rel="next" title="SpringBoot整合cache" href="https://zysheep.cn/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-cache/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">144</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">37</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">52</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBoot与消息"><span class="toc-number">1.</span> <span class="toc-text">SpringBoot与消息</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用场景"><span class="toc-number">1.2.</span> <span class="toc-text">应用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#异步"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">异步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用解耦"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">应用解耦</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#流量削峰"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">流量削峰</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JMS与AMQP比较"><span class="toc-number">1.3.</span> <span class="toc-text">JMS与AMQP比较</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMQ简介"><span class="toc-number">2.</span> <span class="toc-text">RabbitMQ简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#核心概念"><span class="toc-number">2.1.</span> <span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Message"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">Message</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMQ运行机制"><span class="toc-number">3.</span> <span class="toc-text">RabbitMQ运行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Exchange-类型"><span class="toc-number">3.1.</span> <span class="toc-text">Exchange 类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Direct-EXchange"><span class="toc-number">3.1.1.</span> <span class="toc-text">Direct EXchange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fanout-EXchange"><span class="toc-number">3.1.2.</span> <span class="toc-text">Fanout EXchange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Topic-EXchange"><span class="toc-number">3.1.3.</span> <span class="toc-text">Topic EXchange</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBoot-RabbitMQ整合"><span class="toc-number">4.</span> <span class="toc-text">SpringBoot RabbitMQ整合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker安装RabbitMQ"><span class="toc-number">4.1.</span> <span class="toc-text">docker安装RabbitMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备"><span class="toc-number">4.2.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bind"><span class="toc-number">4.2.1.</span> <span class="toc-text">bind</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#exchange-direct"><span class="toc-number">4.2.1.1.</span> <span class="toc-text">exchange.direct</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exchange-topic"><span class="toc-number">4.2.1.2.</span> <span class="toc-text">exchange.topic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exchange-fanout"><span class="toc-number">4.2.1.3.</span> <span class="toc-text">exchange.fanout</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试发送message"><span class="toc-number">4.2.2.</span> <span class="toc-text">测试发送message</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看队列消息"><span class="toc-number">4.2.2.1.</span> <span class="toc-text">查看队列消息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动配置原理"><span class="toc-number">4.3.</span> <span class="toc-text">自动配置原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试rabbitTemplate"><span class="toc-number">4.4.</span> <span class="toc-text">测试rabbitTemplate</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pom"><span class="toc-number">4.4.1.</span> <span class="toc-text">Pom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yml"><span class="toc-number">4.4.2.</span> <span class="toc-text">yml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试点对点发送"><span class="toc-number">4.4.3.</span> <span class="toc-text">测试点对点发送</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MyAMQPConfig"><span class="toc-number">4.4.3.1.</span> <span class="toc-text">MyAMQPConfig</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试广播"><span class="toc-number">4.4.4.</span> <span class="toc-text">测试广播</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息监听"><span class="toc-number">4.5.</span> <span class="toc-text">消息监听</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java创建管理组件"><span class="toc-number">4.6.</span> <span class="toc-text">java创建管理组件</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/tech-spring-boot.width-1024.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">SpringBoot整合rabbitMQ</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-03-03 10:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-03-03</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-03 17:48:11"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-03</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/">Spring全家桶</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/Spring-Boot2-2-2/">Spring Boot2.2.2</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.7k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 9 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-amqp/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><blockquote>
+<p>图片来自尚硅谷</p>
+</blockquote>
+<h1 id="SpringBoot与消息"><a href="#SpringBoot与消息" class="headerlink" title="SpringBoot与消息"></a>SpringBoot与消息</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ol>
+<li>大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力</li>
+<li>消息服务中两个重要概念：<br> <strong>消息代理（message broker）和目的地（destination）</strong>:当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。</li>
+<li>消息队列主要有两种形式的目的地<ul>
+<li>队列（queue）：点对点消息通信（point-to-point）</li>
+<li>主题（topic）：发布（publish）/订阅（subscribe）消息通信</li>
+</ul>
+</li>
+<li>点对点式：<ul>
+<li>消息发送者发送消息，消息代理将其放入一个队列中，消息接收者从队列中获取消息内容，消息读取后被移出队列</li>
+<li>消息只有唯一的发送者和接受者，但并不是说只能有一个接收者</li>
+</ul>
+</li>
+<li>发布订阅式：<ul>
+<li>发送者（发布者）发送消息到主题，多个接收者（订阅者）监听（订阅）这个主题，那么就会在消息到达时同时收到消息</li>
+</ul>
+</li>
+<li>JMS（Java Message Service）JAVA消息服务：<ul>
+<li>基于JVM消息代理的规范。ActiveMQ、HornetMQ是JMS实现</li>
+</ul>
+</li>
+<li>AMQP（Advanced Message Queuing Protocol）<ul>
+<li>高级消息队列协议，也是一个消息代理的规范，兼容JMS</li>
+<li>RabbitMQ是AMQP的实现</li>
+</ul>
+</li>
+<li>Spring支持<ul>
+<li>spring-jms提供了对JMS的支持</li>
+<li>spring-rabbit提供了对AMQP的支持</li>
+<li>需要ConnectionFactory的实现来连接消息代理</li>
+<li>提供JmsTemplate、RabbitTemplate来发送消息</li>
+<li>@JmsListener（JMS）、@RabbitListener（AMQP）注解在方法上监听消息代理发布的消息</li>
+<li>@EnableJms、@EnableRabbit开启支持</li>
+</ul>
+</li>
+<li>Spring Boot自动配置<ul>
+<li>JmsAutoConfiguration</li>
+<li>RabbitAutoConfiguration</li>
+</ul>
+</li>
+</ol>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h4 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h4><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/amqp1.png" alt=""></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/amqp2.png" alt=""></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/amqp3.png" alt=""></p>
+<h4 id="应用解耦"><a href="#应用解耦" class="headerlink" title="应用解耦"></a>应用解耦</h4><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/amqp4.png" alt=""></p>
+<h4 id="流量削峰"><a href="#流量削峰" class="headerlink" title="流量削峰"></a>流量削峰</h4><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/amqp5.png" alt=""></p>
+<h2 id="JMS与AMQP比较"><a href="#JMS与AMQP比较" class="headerlink" title="JMS与AMQP比较"></a>JMS与AMQP比较</h2><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">JMS</th>
+<th align="center">AMQP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">定义</td>
+<td align="center">Java api</td>
+<td align="center">网络线级协议</td>
+</tr>
+<tr>
+<td align="center">跨语言</td>
+<td align="center">否</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">跨平台</td>
+<td align="center">否</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">Model</td>
+<td align="center">提供两种消息模型：（1）、Peer-2-Peer（2）、Pub/sub</td>
+<td align="center">提供了五种消息模型：（1）、direct exchange（2）、fanout exchange（3）、topic change（4）、headers exchange（5）、system exchange本质来讲，后四种和JMS的pub/sub模型没有太大差别，仅是在路由机制上做了更详细的划分；</td>
+</tr>
+<tr>
+<td align="center">支持消息类型</td>
+<td align="center">多种消息类型：TextMessageMapMessageBytesMessageStreamMessageObjectMessageMessage （只有消息头和属性）</td>
+<td align="center">byte[]当实际应用时，有复杂的消息，可以将消息序列化后发送。</td>
+</tr>
+<tr>
+<td align="center">综合评价</td>
+<td align="center">JMS 定义了JAVA API层面的标准；在java体系中，多个client均可以通过JMS进行交互，不需要应用修改代码，但是其对跨平台的支持较差；</td>
+<td align="center">AMQP定义了wire-level层的协议标准；天然具有跨平台、跨语言特性。</td>
+</tr>
+</tbody></table>
+<h1 id="RabbitMQ简介"><a href="#RabbitMQ简介" class="headerlink" title="RabbitMQ简介"></a>RabbitMQ简介</h1><p>RabbitMQ是一个由erlang开发的AMQP(Advanved Message Queue Protocol)的开源实现。</p>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h4 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h4><p>消息，消息是不具名的，它由消息头和消息体组成。消息体是不透明的，而消息头则由一系列的可选属性组成，这些属性包括routing-key（路由键）、priority（相对于其他消息的优先权）、delivery-mode（指出该消息可能需要持久性存储）等。</p>
+<p>####Publisher<br>消息的生产者，也是一个向交换器发布消息的客户端应用程序。</p>
+<p>####Exchange<br>交换器，用来接收生产者发送的消息并将这些消息路由给服务器中的队列。<br>Exchange有4种类型：direct(默认)，fanout, topic, 和headers，不同类型的Exchange转发消息的策略有所区别</p>
+<p>####Queue<br>消息队列，用来保存消息直到发送给消费者。它是消息的容器，也是消息的终点。一个消息可投入一个或多个队列。消息一直在队列里面，等待消费者连接到这个队列将其取走。</p>
+<p>####Binding<br>绑定，用于消息队列和交换器之间的关联。一个绑定就是基于路由键将交换器和消息队列连接起来的路由规则，所以可以将交换器理解成一个由绑定构成的路由表。<br>Exchange 和Queue的绑定可以是多对多的关系。</p>
+<p>####Connection<br>网络连接，比如一个TCP连接。</p>
+<p>####Channel<br>信道，多路复用连接中的一条独立的双向数据流通道。信道是建立在真实的TCP连接内的虚拟连接，AMQP 命令都是通过信道发出去的，不管是发布消息、订阅队列还是接收消息，这些动作都是通过信道完成。因为对于操作系统来说建立和销毁 TCP 都是非常昂贵的开销，所以引入了信道的概念，以复用一条 TCP 连接。</p>
+<p>####Consumer<br>消息的消费者，表示一个从消息队列中取得消息的客户端应用程序。</p>
+<p>####Virtual Host<br>虚拟主机，表示一批交换器、消息队列和相关对象。虚拟主机是共享相同的身份认证和加密环境的独立服务器域。每个 vhost 本质上就是一个 mini 版的 RabbitMQ 服务器，拥有自己的队列、交换器、绑定和权限机制。vhost 是 AMQP 概念的基础，必须在连接时指定，RabbitMQ 默认的 vhost 是 / 。</p>
+<p>####Broker<br>表示消息队列服务器实体</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/rabbitmq1.png" alt=""></p>
+<h1 id="RabbitMQ运行机制"><a href="#RabbitMQ运行机制" class="headerlink" title="RabbitMQ运行机制"></a>RabbitMQ运行机制</h1><p>##AMQP 中的消息路由<br>AMQP 中消息的路由过程和 Java 开发者熟悉的 JMS 存在一些差别，AMQP 中增加了 Exchange 和 Binding 的角色。生产者把消息发布到 Exchange 上，消息最终到达队列并被消费者接收，而 Binding 决定交换器的消息应该发送到那个队列。</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/rabbitmq2.png" alt=""></p>
+<h2 id="Exchange-类型"><a href="#Exchange-类型" class="headerlink" title="Exchange 类型"></a>Exchange 类型</h2><p>Exchange分发消息时根据类型的不同分发策略有区别，目前共四种类型：direct、fanout、topic、headers 。headers 匹配 AMQP 消息的 header 而不是路由键， headers 交换器和 direct 交换器完全一致，但性能差很多，目前几乎用不到了，所以直接看另外三种类型：</p>
+<h3 id="Direct-EXchange"><a href="#Direct-EXchange" class="headerlink" title="Direct EXchange"></a>Direct EXchange</h3><p>消息中的路由键（routing key）如果和 Binding 中的 binding key 一致， 交换器就将消息发到对应的队列中。路由键与队列名完全匹配，如果一个队列绑定到交换机要求路由键为“dog”，则只转发 routing key 标记为“dog”的消息，不会转发“dog.puppy”，也不会转发“dog.guard”等等。它是完全匹配、单播的模式。</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/rabbitmq3.png" alt=""></p>
+<h3 id="Fanout-EXchange"><a href="#Fanout-EXchange" class="headerlink" title="Fanout EXchange"></a>Fanout EXchange</h3><p>每个发到 fanout 类型交换器的消息都会分到所有绑定的队列上去。fanout 交换器不处理路由键，只是简单的将队列绑定到交换器上，每个发送到交换器的消息都会被转发到与该交换器绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息。fanout 类型转发消息是最快的。</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/rabbitmq4.png" alt=""></p>
+<h3 id="Topic-EXchange"><a href="#Topic-EXchange" class="headerlink" title="Topic EXchange"></a>Topic EXchange</h3><p>topic 交换器通过模式匹配分配消息的路由键属性，将路由键和某个模式进行匹配，此时队列需要绑定到一个模式上。它将路由键和绑定键的字符串切分成单词，这些单词之间用点隔开。它同样也会识别两个通配符：符号“#”和符号“<em>”。#匹配0个或多个单词，</em>匹配一个单词。</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/rabbitmq5.png" alt=""></p>
+<h1 id="SpringBoot-RabbitMQ整合"><a href="#SpringBoot-RabbitMQ整合" class="headerlink" title="SpringBoot RabbitMQ整合"></a>SpringBoot RabbitMQ整合</h1><h2 id="docker安装RabbitMQ"><a href="#docker安装RabbitMQ" class="headerlink" title="docker安装RabbitMQ"></a>docker安装RabbitMQ</h2><p>###拉取镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull rabbitmq:3.8.3-management-alpine</span><br></pre></td></tr></table></figure>
+
+<p>###启动镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d  -p 5672:5672  -p 15672:15672 --name myrabbitmq  rabbitmq:3.8.3-management-alpine</span><br></pre></td></tr></table></figure>
+
+<p>默认账号密码为:<code>guest</code></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603161414.png" alt=""></p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/rabbitmq7.png" alt=""></p>
+<p>###添加Exchange</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603161829.png" alt=""></p>
+<p>###添加 Queue</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603162014.png" alt=""></p>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><h4 id="exchange-direct"><a href="#exchange-direct" class="headerlink" title="exchange.direct"></a>exchange.direct</h4><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603162551.png" alt=""></p>
+<h4 id="exchange-topic"><a href="#exchange-topic" class="headerlink" title="exchange.topic"></a>exchange.topic</h4><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE202006031631462.png" alt=""></p>
+<h4 id="exchange-fanout"><a href="#exchange-fanout" class="headerlink" title="exchange.fanout"></a>exchange.fanout</h4><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE202006031631281.png" alt=""></p>
+<h3 id="测试发送message"><a href="#测试发送message" class="headerlink" title="测试发送message"></a>测试发送message</h3><p>####点对点发送(Direct EXchange)</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603163605.png" alt=""></p>
+<blockquote>
+<p>查看队列收到的消息,发现只有路由键zysheep多了一条,则为点对点发送的消息</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603163733.png" alt=""></p>
+<p>####广播发送(fanout exchange)</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603164402.png" alt=""></p>
+<blockquote>
+<p>查看队列发现都多了一条消息,表示为广播消息</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603164439.png" alt=""></p>
+<p>####匹配规则发送(exchange.topic)</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603165006.png" alt=""></p>
+<blockquote>
+<p>查看队列消息,只有匹配zysheep.news的规则的路由键收到了消息;因为zysheep.news的路由键的规则匹配zysheep.#和*.news,所以都匹配上了,及结果都加了一条消息</p>
+</blockquote>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603165722.png" alt=""></p>
+<h4 id="查看队列消息"><a href="#查看队列消息" class="headerlink" title="查看队列消息"></a>查看队列消息</h4><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200603165957.png" alt=""></p>
+<h2 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="自动配置原理"></a>自动配置原理</h2><ol>
+<li>RabbitAutoConfiguration</li>
+<li>有自动配置了连接工厂ConnectionFactory；</li>
+<li>RabbitProperties 封装了 RabbitMQ的配置</li>
+<li>RabbitTemplate ：给RabbitMQ发送和接受消息；</li>
+<li>AmqpAdmin ： RabbitMQ系统管理功能组件;<ul>
+<li>AmqpAdmin：创建和删除 Queue，Exchange，Binding</li>
+</ul>
+</li>
+<li>@EnableRabbit +  @RabbitListener 监听消息队列的内容</li>
+</ol>
+<h2 id="测试rabbitTemplate"><a href="#测试rabbitTemplate" class="headerlink" title="测试rabbitTemplate"></a>测试rabbitTemplate</h2><h3 id="Pom"><a href="#Pom" class="headerlink" title="Pom"></a>Pom</h3><p>引入<code>rabbitmq</code>的依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--amqp  start--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-amqp&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;!--amqp  end--&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="yml"><a href="#yml" class="headerlink" title="yml"></a>yml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  rabbitmq:</span><br><span class="line">    host: 172.16.0.192</span><br><span class="line"># 端口,用户名,密码默认</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试点对点发送"><a href="#测试点对点发送" class="headerlink" title="测试点对点发送"></a>测试点对点发送</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 1、单播（点对点）</span></span><br><span class="line"><span class="comment">   rabbitTemplate.send(exchage,routeKey,message);</span></span><br><span class="line"><span class="comment">   rabbitTemplate.convertAndSend(exchage,routeKey,object);</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">//Message需要自己构造一个;定义消息体内容和消息头</span></span><br><span class="line">      <span class="comment">//rabbitTemplate.send(exchage,routeKey,message);</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//object默认当成消息体，只需要传入要发送的对象，自动序列化发送给rabbitmq；</span></span><br><span class="line">      <span class="comment">//rabbitTemplate.convertAndSend(exchage,routeKey,object);</span></span><br><span class="line">      Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">      map.put(<span class="string">"msg"</span>, <span class="string">"这是第一个消息"</span>);</span><br><span class="line">      map.put(<span class="string">"data"</span>, Arrays.asList(<span class="string">"helloworld"</span>, <span class="number">123</span>, <span class="keyword">true</span>));</span><br><span class="line">      <span class="comment">//对象被默认序列化以后发送出去</span></span><br><span class="line">      rabbitTemplate.convertAndSend(<span class="string">"exchange.direct"</span>, <span class="string">"zysheep.news"</span>,map);</span><br><span class="line">      <span class="comment">//rabbitTemplate.convertAndSend("exchange.direct", "zysheep.news", new Book("西游记", "吴承恩"));</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看队列中的信息发现,不是我们想要的结果,是序列化化的结果;</p>
+<p>思考?是否可以将数据自动的转为json发送出去</p>
+<p>答案:可以,我们只需要编写自己的配置覆盖Springboot自动配置MessageConverter序列化规则</p>
+</blockquote>
+<h4 id="MyAMQPConfig"><a href="#MyAMQPConfig" class="headerlink" title="MyAMQPConfig"></a>MyAMQPConfig</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;将数据自动的转为json发送出去</span><br><span class="line">@Configuration</span><br><span class="line">public class MyAMQPConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public MessageConverter messageConverter() &#123;</span><br><span class="line">        return new Jackson2JsonMessageConverter();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>####接受数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;接受数据,数据以json序列化回来</span><br><span class="line">@Test</span><br><span class="line">public void receive() &#123;</span><br><span class="line">    Object o &#x3D; rabbitTemplate.receiveAndConvert(&quot;zysheep.news&quot;);</span><br><span class="line">    System.out.println(o.getClass());</span><br><span class="line">    System.out.println(o);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试广播"><a href="#测试广播" class="headerlink" title="测试广播"></a>测试广播</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* 广播</span><br><span class="line">*&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void sendMsg() &#123;</span><br><span class="line">	rabbitTemplate.convertAndSend(&quot;exchange.fanout&quot;, &quot;&quot;, new Book(&quot;红楼梦&quot;, &quot;曹雪芹&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="消息监听"><a href="#消息监听" class="headerlink" title="消息监听"></a>消息监听</h2><p>队列中有消息,就监听打印到后台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class BookService &#123;</span><br><span class="line">    @RabbitListener(queues &#x3D; &quot;zysheep.news&quot;)</span><br><span class="line">    public void receive(Book book) &#123;</span><br><span class="line">        System.out.println(&quot;收到消息：&quot; + book);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;获得消息头</span><br><span class="line">    @RabbitListener(queues &#x3D; &quot;zysheep.emps&quot;)</span><br><span class="line">    public void receive02(Message message) &#123;</span><br><span class="line">        System.out.println(message.getBody());</span><br><span class="line">        System.out.println(message.getMessageProperties());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>要使该注解生效，必须要在启动类上加@EnableRabbit注解</p>
+</blockquote>
+<h2 id="java创建管理组件"><a href="#java创建管理组件" class="headerlink" title="java创建管理组件"></a>java创建管理组件</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">AmqpAdmin amqpAdmin;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createExchange</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//创建交换器</span></span><br><span class="line">    amqpAdmin.declareExchange(<span class="keyword">new</span> DirectExchange(<span class="string">"amqpadmin.exchange"</span>));</span><br><span class="line">    System.out.println(<span class="string">"创建完成"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建队列</span></span><br><span class="line">    amqpAdmin.declareQueue(<span class="keyword">new</span> Queue(<span class="string">"amqpadmin.queue"</span>, <span class="keyword">true</span>));</span><br><span class="line">    <span class="comment">//true:是否持久化</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建绑定规则</span></span><br><span class="line">    amqpAdmin.declareBinding(<span class="keyword">new</span> Binding(<span class="string">"amqpadmin.queue"</span>, Binding.DestinationType.QUEUE, <span class="string">"amqpadmin.exchange"</span>, <span class="string">"amqp.haha"</span>, <span class="keyword">null</span>));</span><br><span class="line">     <span class="comment">//String destination:目的地</span></span><br><span class="line">    <span class="comment">// Binding.DestinationType destinationType:目的地类型</span></span><br><span class="line">    <span class="comment">// String exchange: 交换器</span></span><br><span class="line">    <span class="comment">// String routingKey:路由键</span></span><br><span class="line">    <span class="comment">// @Nullable Map&lt;String, Object&gt; arguments) :参数头信息</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//删除操作</span></span><br><span class="line">   <span class="comment">// amqpAdmin.declareQueue();</span></span><br><span class="line">   <span class="comment">// amqpAdmin.declareExchange();</span></span><br><span class="line">   <span class="comment">// amqpAdmin.declareBinding();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-amqp/">https://zysheep.cn/2020/03/03/Spring/Spring Boot 2.2.2/SpringBoot-amqp/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spring/">Spring</a><a class="post-meta__tags" href="/tags/Spring-Boot2-2-2/">Spring Boot2.2.2</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-Jpa/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SpringBoot整合JPA</div></div></a></div><div class="next-post pull_right"><a href="/2020/03/03/Spring/Spring%20Boot%202.2.2/SpringBoot-cache/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SpringBoot整合cache</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/03/03/Spring/Spring Boot 2.2.2/SpringBoot-Lombok/" title="SpringBoot集成Lombok"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">SpringBoot集成Lombok</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/Spring/Spring Boot 2.2.2/Spring Boot-elasticSearch/" title="SpringBoot整合Elasticsearch"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">SpringBoot整合Elasticsearch</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/Spring/Spring Boot 2.2.2/SpringBoot-Jpa/" title="SpringBoot整合JPA"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">SpringBoot整合JPA</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/Spring/Spring Boot 2.2.2/SpringBoot-cache/" title="SpringBoot整合cache"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">SpringBoot整合cache</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/Spring/Spring Boot 2.2.2/SpringBoot-MongoDB/" title="SpringBoot整合MongDB"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">SpringBoot整合MongDB</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/03/Spring/Spring Boot 2.2.2/SpringBoot-Mybatis-annotation/" title="SpringBoot整合Mybatis注解版"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/spring-boot-project-logo2.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-03</div><div class="relatedPosts_title">SpringBoot整合Mybatis注解版</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/tech-spring-boot.width-1024.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
