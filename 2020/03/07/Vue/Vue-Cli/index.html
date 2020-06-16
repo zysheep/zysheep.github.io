@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vue-Cli详解 | 三月三</title><meta name="description" content="Vue-CLI详解如果你只是简单写几个Vue的Demo程序, 那么你不需要Vue CLI;如果你在开发大型项目, 那么你需要, 并且必然需要使用Vue CLI使用Vue.js开发大型应用时，我们需要考虑代码目录结构、项目结构和部署、热加载、代码单元测试等事情。如果每个项目都要手动完成这些工作，那无以效率比较低效，所以通常我们会使用一些脚手架工具来帮助完成这些事情。用vue.js开发大型应用需要使用"><meta name="keywords" content="Vue,js"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Vue-Cli详解"><meta name="twitter:description" content="Vue-CLI详解如果你只是简单写几个Vue的Demo程序, 那么你不需要Vue CLI;如果你在开发大型项目, 那么你需要, 并且必然需要使用Vue CLI使用Vue.js开发大型应用时，我们需要考虑代码目录结构、项目结构和部署、热加载、代码单元测试等事情。如果每个项目都要手动完成这些工作，那无以效率比较低效，所以通常我们会使用一些脚手架工具来帮助完成这些事情。用vue.js开发大型应用需要使用"><meta name="twitter:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/vueCli-cover.png"><meta property="og:type" content="article"><meta property="og:title" content="Vue-Cli详解"><meta property="og:url" content="https://zysheep.cn/2020/03/07/Vue/Vue-Cli/"><meta property="og:site_name" content="三月三"><meta property="og:description" content="Vue-CLI详解如果你只是简单写几个Vue的Demo程序, 那么你不需要Vue CLI;如果你在开发大型项目, 那么你需要, 并且必然需要使用Vue CLI使用Vue.js开发大型应用时，我们需要考虑代码目录结构、项目结构和部署、热加载、代码单元测试等事情。如果每个项目都要手动完成这些工作，那无以效率比较低效，所以通常我们会使用一些脚手架工具来帮助完成这些事情。用vue.js开发大型应用需要使用"><meta property="og:image" content="http://qanu3nz77.bkt.clouddn.com/zysheep/vueCli-cover.png"><meta property="article:published_time" content="2020-03-06T22:30:45.000Z"><meta property="article:modified_time" content="2020-06-15T07:31:32.961Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2020/03/07/Vue/Vue-Cli/"><link rel="prev" title="Vue-router详解" href="https://zysheep.cn/2020/03/07/Vue/Vue-router%E8%AF%A6%E8%A7%A3/"><link rel="next" title="Nginx的前世今生" href="https://zysheep.cn/2020/03/06/Nginx/Nginx%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">195</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">42</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">63</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue-CLI详解"><span class="toc-number">1.</span> <span class="toc-text">Vue-CLI详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-CLI"><span class="toc-number">1.1.</span> <span class="toc-text">Vue CLI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLI是什么意思"><span class="toc-number">1.1.1.</span> <span class="toc-text">CLI是什么意思?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拉取-2-x-模板-旧版本"><span class="toc-number">1.1.2.</span> <span class="toc-text">拉取 2.x 模板 (旧版本)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-CLI2"><span class="toc-number">1.2.</span> <span class="toc-text">Vue CLI2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录结构详解"><span class="toc-number">1.2.1.</span> <span class="toc-text">目录结构详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Runtime-Compiler和Runtime-only的区别"><span class="toc-number">1.2.2.</span> <span class="toc-text">Runtime-Compiler和Runtime-only的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#render和template"><span class="toc-number">1.2.3.</span> <span class="toc-text">render和template</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#render函数的使用"><span class="toc-number">1.2.4.</span> <span class="toc-text">render函数的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-CLI3"><span class="toc-number">1.3.</span> <span class="toc-text">Vue CLI3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录结构详解-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">目录结构详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置去哪里了？"><span class="toc-number">1.3.2.</span> <span class="toc-text">配置去哪里了？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改配置"><span class="toc-number">1.3.3.</span> <span class="toc-text">修改配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#箭头函数"><span class="toc-number">2.</span> <span class="toc-text">箭头函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础语法"><span class="toc-number">2.1.</span> <span class="toc-text">基础语法</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/vue-cli.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">Vue-Cli详解</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-03-07 06:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-03-07</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-15 15:31:32"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-15</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/Vue-js/">Vue.js</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 5 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2020/03/07/Vue/Vue-Cli/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Vue-CLI详解"><a href="#Vue-CLI详解" class="headerlink" title="Vue-CLI详解"></a>Vue-CLI详解</h1><p>如果你只是简单写几个<code>Vue</code>的Demo程序, 那么你不需要<code>Vue CLI</code>;如果你在开发大型项目, 那么你需要, 并且必然需要使用<code>Vue CLI</code>使用<code>Vue.js</code>开发大型应用时，我们需要考虑<strong>代码目录结构、项目结构和部署、热加载、代码单元测试</strong>等事情。如果每个项目都要手动完成这些工作，那无以效率比较低效，所以通常我们会使用一些脚手架工具来帮助完成这些事情。用vue.js开发大型应用需要使用webpack打包工具</p>
+<h2 id="Vue-CLI"><a href="#Vue-CLI" class="headerlink" title="Vue CLI"></a>Vue CLI</h2><h3 id="CLI是什么意思"><a href="#CLI是什么意思" class="headerlink" title="CLI是什么意思?"></a>CLI是什么意思?</h3><ol>
+<li>CLI是Command-Line Interface, 翻译为命令行界面, 但是俗称脚手架</li>
+<li>Vue CLI是一个官方发布 vue.js 项目脚手架</li>
+<li>使用 vue-cli 可以快速搭建Vue开发环境以及对应的webpack配置.</li>
+</ol>
+<p>###Vue CLI的安装</p>
+<p>来自官网<a href="https://cli.vuejs.org/zh/guide/installation.html" target="_blank" rel="noopener">vue-cli</a></p>
+<blockquote>
+<p>关于旧版本</p>
+<p>Vue CLI 的包名称由 <code>vue-cli</code> 改成了 <code>@vue/cli</code>。 如果你已经全局安装了旧版本的 <code>vue-cli</code> (1.x 或 2.x)，你需要先通过 <code>npm uninstall vue-cli -g</code> 或 <code>yarn global remove vue-cli</code> 卸载它。</p>
+</blockquote>
+<blockquote>
+<p>Node 版本要求</p>
+<p>Vue CLI 需要 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a> 8.9 或更高版本 (推荐 8.11.0+)。你可以使用 <a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a> 或 <a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener">nvm-windows</a> 在同一台电脑中管理多个 Node 版本。</p>
+</blockquote>
+<p>可以使用下列任一命令安装这个新的包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue&#x2F;cli</span><br><span class="line"># OR</span><br><span class="line">yarn global add @vue&#x2F;cli</span><br></pre></td></tr></table></figure>
+
+<p>安装之后，你就可以在命令行中访问 <code>vue</code> 命令。你可以通过简单运行 <code>vue</code>，看看是否展示出了一份所有可用命令的帮助信息，来验证它是否安装成功。</p>
+<p>你还可以用这个命令来检查其版本是否正确：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vue --version</span><br><span class="line"></span><br><span class="line">E:\webpack\webpacktestvue&gt;vue --version</span><br><span class="line">@vue&#x2F;cli 4.0.5</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>上面安装的是<code>Vue CLI3</code>的版本，如果需要想按照<code>Vue CLI2</code>的方式初始化项目时不可以的。</p>
+<h3 id="拉取-2-x-模板-旧版本"><a href="#拉取-2-x-模板-旧版本" class="headerlink" title="拉取 2.x 模板 (旧版本)"></a>拉取 2.x 模板 (旧版本)</h3><p>Vue CLI &gt;= 3 和旧版使用了相同的 <code>vue</code> 命令，所以 Vue CLI 2 (<code>vue-cli</code>) 被覆盖了。如果你仍然需要使用旧版本的 <code>vue init</code> 功能，你可以全局安装一个桥接工具：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue&#x2F;cli-init</span><br><span class="line"># &#96;vue init&#96; 的运行效果将会跟 &#96;vue-cli@2.x&#96; 相同</span><br><span class="line">vue init webpack my-project</span><br></pre></td></tr></table></figure>
+
+<p>Vue CLI2初始化项目<code>vue init webpack my-project</code></p>
+<p>Vue CLI3初始化项目<code>vue create my-project</code></p>
+<h2 id="Vue-CLI2"><a href="#Vue-CLI2" class="headerlink" title="Vue CLI2"></a>Vue CLI2</h2><p>###创建项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">E:\webpack\vue-cli2-test&gt;vue init webpack vue-cli2-test </span><br><span class="line"># 会根据vue-cli2-test名称创建一个文件夹,存放之后的项目内容,该名称也会作为默认的项目名称,但是不能包含大写字母</span><br><span class="line">? Project name vue-cli2-test</span><br><span class="line"># 项目名称,不能包含大写</span><br><span class="line">? Project description A Vue.js project</span><br><span class="line">#项目描述</span><br><span class="line">? Author zysheep &lt;zysheep@126.com&gt;</span><br><span class="line"># 作者的信息,默认在git中读取信息</span><br><span class="line">? Vue build runtime</span><br><span class="line"># 选择第二个</span><br><span class="line">? Install vue-router? No</span><br><span class="line"># 是否需要路由</span><br><span class="line">? Use ESLint to lint your code? No</span><br><span class="line"># ESlint检测代码规范</span><br><span class="line">? Set up unit tests No</span><br><span class="line"># 单元测试</span><br><span class="line">? Setup e2e tests with Nightwatch? No</span><br><span class="line">#e2e测试</span><br><span class="line">? Should we run &#96;npm install&#96; for you after the project has been created? (recommended) npm</span><br><span class="line"># 选择npm安装</span><br><span class="line">   vue-cli · Generated &quot;vue-cli2-test&quot;.</span><br></pre></td></tr></table></figure>
+
+<h3 id="目录结构详解"><a href="#目录结构详解" class="headerlink" title="目录结构详解"></a>目录结构详解</h3><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200615115840.png" alt=""></p>
+<h3 id="Runtime-Compiler和Runtime-only的区别"><a href="#Runtime-Compiler和Runtime-only的区别" class="headerlink" title="Runtime-Compiler和Runtime-only的区别"></a>Runtime-Compiler和Runtime-only的区别</h3><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue14.png" alt=""></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue15.png" alt=""></p>
+<p>总结</p>
+<blockquote>
+<p>如果在之后的开发中，你依然使用template，就需要选择<code>Runtime-Compiler</code></p>
+<p>如果你之后的开发中，使用的是<code>.vue</code>文件夹开发，那么可以选择<code>Runtime-only</code></p>
+</blockquote>
+<h3 id="render和template"><a href="#render和template" class="headerlink" title="render和template"></a>render和template</h3><p><code>Runtime-Compiler</code>和<code>Runtime-only</code></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200615134142.png" alt=""></p>
+<p>为什么存在这样的差异呢？</p>
+<ul>
+<li>我们需要先理解Vue应用程序是如何运行起来的。</li>
+<li>Vue中的模板如何最终渲染成真实DOM。</li>
+</ul>
+<p>###Vue程序运行过程</p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200615134336.png" alt=""></p>
+<h3 id="render函数的使用"><a href="#render函数的使用" class="headerlink" title="render函数的使用"></a>render函数的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line"></span><br><span class="line">  render: (createElement) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;使用方式一</span><br><span class="line">    &#x2F;&#x2F;return createElement(&#39;标签&#39;,&#39;相关数据对象(可以不传递)&#39;,[&#39;内容数组&#39;])</span><br><span class="line">    &#x2F;&#x2F;1.1 render函数基本使用</span><br><span class="line">    &#x2F;&#x2F;return createElement(&#39;div&#39;,&#123;class:&#39;box&#39;&#125;,[&#39;三月三&#39;])</span><br><span class="line">    &#x2F;&#x2F;1.2 嵌套render函数</span><br><span class="line">   &#x2F;&#x2F;return createElement(&#39;div&#39;,&#123;class:&#39;box&#39;&#125;,[&#39;三月三&#39;,createElement(&#39;h2&#39;,[&#39;标题&#39;])]);</span><br><span class="line">   &#x2F;&#x2F;使用方式二  传递一个组件对象</span><br><span class="line">    return  createElement(App)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vue-CLI3"><a href="#Vue-CLI3" class="headerlink" title="Vue CLI3"></a>Vue CLI3</h2><p>vue-cli 3 与 2 版本有很大区别</p>
+<ul>
+<li>vue-cli 3 是基于 webpack 4 打造，vue-cli 2 还是 webapck 3</li>
+<li>vue-cli 3 的设计原则是“0配置”，移除的配置文件根目录下的，build和config等目录</li>
+<li>vue-cli 3 提供了 vue ui 命令，提供了可视化配置，更加人性化</li>
+<li>移除了static文件夹，新增了public文件夹，并且index.html移动到public中</li>
+</ul>
+<p>###创建vue-cli3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">E:\webpack&gt;vue create vue-cli3-test</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Vue CLI v4.4.4</span><br><span class="line">? Please pick a preset: Manually select features  # 选择配置方式,这里我选择手动配置</span><br><span class="line">? Check the features needed for your project: Babel # 选择自己需要的配置空格选中或反选</span><br><span class="line">? Where do you prefer placing config for Babel, ESLint, etc.? In package.json</span><br><span class="line"># 对应的配置单独生成文件还是放在package.json中</span><br><span class="line">? Save this as a preset for future projects? No</span><br><span class="line"># 要不要把刚才自己选择的配置保存下来</span><br></pre></td></tr></table></figure>
+
+<h3 id="目录结构详解-1"><a href="#目录结构详解-1" class="headerlink" title="目录结构详解"></a>目录结构详解</h3><p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200615140606.png" alt=""></p>
+<h3 id="配置去哪里了？"><a href="#配置去哪里了？" class="headerlink" title="配置去哪里了？"></a>配置去哪里了？</h3><p>启动配置服务器：<code>vue ui</code></p>
+<p><img src="http://qanu3nz77.bkt.clouddn.com/zysheep/QQ%E6%88%AA%E5%9B%BE20200615141517.png" alt=""></p>
+<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>如果对配置不满意,可以在根目录创建<code>vue.config.js</code>进行修改配置</p>
+<h1 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h1><p><strong>箭头函数表达式</strong>的语法比函数表达式更简洁，并且没有自己的<code>this</code>，<code>arguments</code>，<code>super</code>或<code>new.target</code>。箭头函数表达式更适用于那些本来需要匿名函数的地方，并且它不能用作构造函数。</p>
+<h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(param1, param2, …, paramN) &#x3D;&gt; &#123; statements &#125; </span><br><span class="line">(param1, param2, …, paramN) &#x3D;&gt; expression</span><br><span class="line">&#x2F;&#x2F;相当于：(param1, param2, …, paramN) &#x3D;&gt;&#123; return expression; &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 当只有一个参数时，圆括号是可选的：</span><br><span class="line">(singleParam) &#x3D;&gt; &#123; statements &#125;</span><br><span class="line">singleParam &#x3D;&gt; &#123; statements &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 没有参数的函数应该写成一对圆括号。</span><br><span class="line">() &#x3D;&gt; &#123; statements &#125;</span><br></pre></td></tr></table></figure>
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2020/03/07/Vue/Vue-Cli/">https://zysheep.cn/2020/03/07/Vue/Vue-Cli/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vue/">Vue</a><a class="post-meta__tags" href="/tags/js/">js</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/03/07/Vue/Vue-router%E8%AF%A6%E8%A7%A3/"><img class="prev_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue-router-cover.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Vue-router详解</div></div></a></div><div class="next-post pull_right"><a href="/2020/03/06/Nginx/Nginx%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"><img class="next_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/nginx_logo.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Nginx的前世今生</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/03/08/Vue/Promise的使用/" title="Promise的使用"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/51-RuYqxNML.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-08</div><div class="relatedPosts_title">Promise的使用</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/08/Vue/网络模块封装axios/" title="网络模块封装axios"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue-chimera.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-08</div><div class="relatedPosts_title">网络模块封装axios</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/08/Vue/Vuex详解/" title="Vuex详解"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue_cover2.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-08</div><div class="relatedPosts_title">Vuex详解</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/07/Vue/Vue-router详解/" title="Vue-router详解"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue-router-cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-07</div><div class="relatedPosts_title">Vue-router详解</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/06/Vue/webpack实践/" title="Webpack实践"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue8.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-06</div><div class="relatedPosts_title">Webpack实践</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/05/Vue/Vue.js/" title="Vue.js入门宝典"><img class="relatedPosts_cover" src="http://qanu3nz77.bkt.clouddn.com/zysheep/vue_cover_logo.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-03-05</div><div class="relatedPosts_title">Vue.js入门宝典</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '7aaa3f830ce67c87d829',
+  clientSecret: 'e50657367f1240f2c12596cac63badfaae13fe3b',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://qanu3nz77.bkt.clouddn.com/zysheep/vue-cli.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
