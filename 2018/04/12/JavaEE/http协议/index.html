@@ -1,0 +1,1210 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>http协议 | 三月三</title><meta name="description" content="http协议:对浏览器与服务器之间数据传输内容格式规定  http请求:请求信息 请求行 请求头     空行 实体内容  HttpServletRequest对象：获取请求信息1234567   请求行：	请求方式：request.getMethod()   请求资源：request.getRequestURL()	http协议:request.getProtocol()   请求头：requ"><meta name="keywords" content="JavaEE"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="http协议"><meta name="twitter:description" content="http协议:对浏览器与服务器之间数据传输内容格式规定  http请求:请求信息 请求行 请求头     空行 实体内容  HttpServletRequest对象：获取请求信息1234567   请求行：	请求方式：request.getMethod()   请求资源：request.getRequestURL()	http协议:request.getProtocol()   请求头：requ"><meta name="twitter:image" content="http://cdn.panyucable.cn/zysheep/logo_cover.jpg"><meta property="og:type" content="article"><meta property="og:title" content="http协议"><meta property="og:url" content="https://zysheep.cn/2018/04/12/JavaEE/http%E5%8D%8F%E8%AE%AE/"><meta property="og:site_name" content="三月三"><meta property="og:description" content="http协议:对浏览器与服务器之间数据传输内容格式规定  http请求:请求信息 请求行 请求头     空行 实体内容  HttpServletRequest对象：获取请求信息1234567   请求行：	请求方式：request.getMethod()   请求资源：request.getRequestURL()	http协议:request.getProtocol()   请求头：requ"><meta property="og:image" content="http://cdn.panyucable.cn/zysheep/logo_cover.jpg"><meta property="article:published_time" content="2018-04-12T02:30:45.000Z"><meta property="article:modified_time" content="2020-07-16T01:11:53.310Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2018/04/12/JavaEE/http%E5%8D%8F%E8%AE%AE/"><link rel="prev" title="jsp技术" href="https://zysheep.cn/2018/04/13/JavaEE/jsp%E6%8A%80%E6%9C%AF/"><link rel="next" title="El表达式" href="https://zysheep.cn/2018/04/11/JavaEE/El%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">202</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">44</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">66</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http请求"><span class="toc-number">1.</span> <span class="toc-text">http请求:</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#请求信息"><span class="toc-number">1.1.</span> <span class="toc-text">请求信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HttpServletRequest对象：获取请求信息"><span class="toc-number">2.</span> <span class="toc-text">HttpServletRequest对象：获取请求信息</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#响应信息"><span class="toc-number">2.1.</span> <span class="toc-text">响应信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HttpServletResponse对象：修改响应信息"><span class="toc-number">3.</span> <span class="toc-text">HttpServletResponse对象：修改响应信息</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://cdn.panyucable.cn/zysheep/http_logo.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">http协议</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2018-04-12 10:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2018-04-12</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-07-16 09:11:53"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-07-16</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JavaEE/">JavaEE</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.6k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 13 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2018/04/12/JavaEE/http%E5%8D%8F%E8%AE%AE/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><blockquote>
+<p>http协议:对浏览器与服务器之间数据传输内容格式规定</p>
+</blockquote>
+<h1 id="http请求"><a href="#http请求" class="headerlink" title="http请求:"></a>http请求:</h1><h2 id="请求信息"><a href="#请求信息" class="headerlink" title="请求信息"></a>请求信息</h2><ul>
+<li>请求行</li>
+<li>请求头    </li>
+<li>空行</li>
+<li>实体内容</li>
+</ul>
+<h1 id="HttpServletRequest对象：获取请求信息"><a href="#HttpServletRequest对象：获取请求信息" class="headerlink" title="HttpServletRequest对象：获取请求信息"></a>HttpServletRequest对象：获取请求信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   请求行：</span><br><span class="line">	请求方式：request.getMethod()</span><br><span class="line">   请求资源：request.getRequestURL()	</span><br><span class="line">http协议:request.getProtocol()</span><br><span class="line">   请求头：request.getHeader(&quot;name&quot;);</span><br><span class="line">   实体内容： request.getHeaderNames();</span><br><span class="line">request.getInputStream();</span><br></pre></td></tr></table></figure>
+<p>通用的获取参数内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	request.getParameter(&quot;name&quot;);</span><br><span class="line">request.getPatameterValues(&quot;name&quot;);</span><br><span class="line">request.getParameterNames()</span><br><span class="line">   request.getParameterMap();</span><br></pre></td></tr></table></figure>
+<h2 id="响应信息"><a href="#响应信息" class="headerlink" title="响应信息"></a>响应信息</h2><ul>
+<li>请求行</li>
+<li>请求头    </li>
+<li>空行</li>
+<li>实体内容</li>
+</ul>
+<h1 id="HttpServletResponse对象：修改响应信息"><a href="#HttpServletResponse对象：修改响应信息" class="headerlink" title="HttpServletResponse对象：修改响应信息"></a>HttpServletResponse对象：修改响应信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	响应行：</span><br><span class="line">      response.setStatuts()修改状态码</span><br><span class="line">响应头:</span><br><span class="line">      response.setHeader(&quot;name&quot;,&quot;value&quot;)</span><br><span class="line">      response.setContentType(&quot;&quot;)发送content-type响应头</span><br><span class="line">实体内容：</span><br><span class="line">      response.getWriter().write();</span><br><span class="line">      response.getOutInputStream().write();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[sendRedirect]请求重定向(一次重定向发送两次请求）</span><br><span class="line">response.sendRedirect(&quot;URL&quot;);</span><br><span class="line">等价于</span><br><span class="line">response.setStatus(302);</span><br><span class="line">response.setHeader(&quot;location&quot;,&quot;URL&quot;);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>[refresh]</code>定时刷新或者每隔n秒跳转页面</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&quot;refresh&quot;,&quot;2&quot;);定时刷新</span><br><span class="line">response.setHeader(&quot;refresh&quot;.&quot;3;URL&quot;);</span><br></pre></td></tr></table></figure>
+<p>3.服务器<code>response</code>浏览器输出内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.getWriter().writer();</span><br></pre></td></tr></table></figure>
+<p>4.<code>[content-type]</code>–服务器发送给浏览器的数据类型和数据编码格式</p>
+<blockquote>
+<p><code>response.setContentType(MIME)</code>的作用是使客户端浏览器，区分不同种类的数据，并根据不同的<code>MIME</code>调用浏览器内不同的程序嵌入模块来处理相应的数据。<br>例如<code>web</code>浏览器就是通过<code>MIME</code>类型来判断文件是<code>GIF</code>图片。通过<code>MIME</code>类型来处理<code>json</code>字符串。<br>Tomcat的安装目录\conf\web.xml 中就定义了大量MIME类型 ，可以参考。<br>response.setContentType(“text/html; charset=utf-8”); html<br>response.setContentType(“text/plain; charset=utf-8”); 文本<br>text/javascript json数据<br>application/xml  xml数据<br>这个方法设置发送到客户端的响应的内容类型，此时响应还没有提交。给出的内容类型可以包括字符编码说明，例 如：<code>text/html;charset=UTF-8.</code>如果该方法在<code>getWriter()</code>方法被调用之前调用，那么响应的字符编码将仅从给出的内容类型 中设置。该方法如果在getWriter()方法被调用之后或者在被提交之后调用，将不会设置响应的字符编码，在使用<code>http</code>协议的情况中，该方法设置<code>Content-type</code>实体报头。<br>一般在<code>Servlet</code>中，习惯性的会首先设置请求以及响应的内容类型以及编码方式：<br>response.setContentType(“text/html;charset=UTF-8”);<br>request.setCharacterEncoding(“UTF-8”);</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&quot;content-type&quot;,&quot;text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line">等价于</span><br><span class="line">&#x2F;*</span><br><span class="line">1）设置输出数据的编码</span><br><span class="line">2）告诉浏览器自动适应输出的编码</span><br><span class="line">*&#x2F;</span><br><span class="line">response.setContentType(&quot;text&#x2F;html&quot;);--设置数据类型，告诉浏览器以什么样格式来解析，一定要写服务器支持的数据类型，</span><br><span class="line">等价于</span><br><span class="line">response.setCharacterEnconding(&quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>response.setContentType()的String参数及对应类型</strong></p>
+<table>
+<thead>
+<tr>
+<th>文件扩展名</th>
+<th>Content-Type(Mime-Type)</th>
+<th>文件扩展名</th>
+<th>Content-Type(Mime-Type)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.*（ 二进制流，不知道下载文件类型）</code></td>
+<td><code>application/octet-stream</code></td>
+<td>.tif</td>
+<td>image/tiff</td>
+</tr>
+<tr>
+<td>.001</td>
+<td>application/x-001</td>
+<td>.301</td>
+<td>application/x-301</td>
+</tr>
+<tr>
+<td>.323</td>
+<td>text/h323</td>
+<td>.906</td>
+<td>application/x-906</td>
+</tr>
+<tr>
+<td>.907</td>
+<td>drawing/907</td>
+<td>.a11</td>
+<td>application/x-a11</td>
+</tr>
+<tr>
+<td>.acp</td>
+<td>audio/x-mei-aac</td>
+<td>.ai</td>
+<td>application/postscript</td>
+</tr>
+<tr>
+<td>.aif</td>
+<td>audio/aiff</td>
+<td>.aifc</td>
+<td>audio/aiff</td>
+</tr>
+<tr>
+<td>.aiff</td>
+<td>audio/aiff</td>
+<td>.anv</td>
+<td>application/x-anv</td>
+</tr>
+<tr>
+<td>.asa</td>
+<td>text/asa</td>
+<td>.asf</td>
+<td>video/x-ms-asf</td>
+</tr>
+<tr>
+<td>.asp</td>
+<td>text/asp</td>
+<td>.asx</td>
+<td>video/x-ms-asf</td>
+</tr>
+<tr>
+<td>.au</td>
+<td>audio/basic</td>
+<td>.avi</td>
+<td>video/avi</td>
+</tr>
+<tr>
+<td>.awf</td>
+<td>application/vnd.adobe.workflow</td>
+<td>.biz</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.bmp</td>
+<td>application/x-bmp</td>
+<td>.bot</td>
+<td>application/x-bot</td>
+</tr>
+<tr>
+<td>.c4t</td>
+<td>application/x-c4t</td>
+<td>.c90</td>
+<td>application/x-c90</td>
+</tr>
+<tr>
+<td>.cal</td>
+<td>application/x-cals</td>
+<td>.cat</td>
+<td>application/vnd.ms-pki.seccat</td>
+</tr>
+<tr>
+<td>.cdf</td>
+<td>application/x-netcdf</td>
+<td>.cdr</td>
+<td>application/x-cdr</td>
+</tr>
+<tr>
+<td>.cel</td>
+<td>application/x-cel</td>
+<td>.cer</td>
+<td>application/x-x509-ca-cert</td>
+</tr>
+<tr>
+<td>.cg4</td>
+<td>application/x-g4</td>
+<td>.cgm</td>
+<td>application/x-cgm</td>
+</tr>
+<tr>
+<td>.cit</td>
+<td>application/x-cit</td>
+<td>.class</td>
+<td>java/*</td>
+</tr>
+<tr>
+<td>.cml</td>
+<td>text/xml</td>
+<td>.cmp</td>
+<td>application/x-cmp</td>
+</tr>
+<tr>
+<td>.cmx</td>
+<td>application/x-cmx</td>
+<td>.cot</td>
+<td>application/x-cot</td>
+</tr>
+<tr>
+<td>.crl</td>
+<td>application/pkix-crl</td>
+<td>.crt</td>
+<td>application/x-x509-ca-cert</td>
+</tr>
+<tr>
+<td>.csi</td>
+<td>application/x-csi</td>
+<td>.css</td>
+<td>text/css</td>
+</tr>
+<tr>
+<td>.cut</td>
+<td>application/x-cut</td>
+<td>.dbf</td>
+<td>application/x-dbf</td>
+</tr>
+<tr>
+<td>.dbm</td>
+<td>application/x-dbm</td>
+<td>.dbx</td>
+<td>application/x-dbx</td>
+</tr>
+<tr>
+<td>.dcd</td>
+<td>text/xml</td>
+<td>.dcx</td>
+<td>application/x-dcx</td>
+</tr>
+<tr>
+<td>.der</td>
+<td>application/x-x509-ca-cert</td>
+<td>.dgn</td>
+<td>application/x-dgn</td>
+</tr>
+<tr>
+<td>.dib</td>
+<td>application/x-dib</td>
+<td>.dll</td>
+<td>application/x-msdownload</td>
+</tr>
+<tr>
+<td>.doc</td>
+<td>application/msword</td>
+<td>.dot</td>
+<td>application/msword</td>
+</tr>
+<tr>
+<td>.drw</td>
+<td>application/x-drw</td>
+<td>.dtd</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.dwf</td>
+<td>Model/vnd.dwf</td>
+<td>.dwf</td>
+<td>application/x-dwf</td>
+</tr>
+<tr>
+<td>.dwg</td>
+<td>application/x-dwg</td>
+<td>.dxb</td>
+<td>application/x-dxb</td>
+</tr>
+<tr>
+<td>.dxf</td>
+<td>application/x-dxf</td>
+<td>.edn</td>
+<td>application/vnd.adobe.edn</td>
+</tr>
+<tr>
+<td>.emf</td>
+<td>application/x-emf</td>
+<td>.eml</td>
+<td>message/rfc822</td>
+</tr>
+<tr>
+<td>.ent</td>
+<td>text/xml</td>
+<td>.epi</td>
+<td>application/x-epi</td>
+</tr>
+<tr>
+<td>.eps</td>
+<td>application/x-ps</td>
+<td>.eps</td>
+<td>application/postscript</td>
+</tr>
+<tr>
+<td>.etd</td>
+<td>application/x-ebx</td>
+<td>.exe</td>
+<td>application/x-msdownload</td>
+</tr>
+<tr>
+<td>.fax</td>
+<td>image/fax</td>
+<td>.fdf</td>
+<td>application/vnd.fdf</td>
+</tr>
+<tr>
+<td>.fif</td>
+<td>application/fractals</td>
+<td>.fo</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.frm</td>
+<td>application/x-frm</td>
+<td>.g4</td>
+<td>application/x-g4</td>
+</tr>
+<tr>
+<td>.gbr</td>
+<td>application/x-gbr</td>
+<td>.</td>
+<td>application/x-</td>
+</tr>
+<tr>
+<td>.gif</td>
+<td>image/gif</td>
+<td>.gl2</td>
+<td>application/x-gl2</td>
+</tr>
+<tr>
+<td>.gp4</td>
+<td>application/x-gp4</td>
+<td>.hgl</td>
+<td>application/x-hgl</td>
+</tr>
+<tr>
+<td>.hmr</td>
+<td>application/x-hmr</td>
+<td>.hpg</td>
+<td>application/x-hpgl</td>
+</tr>
+<tr>
+<td>.hpl</td>
+<td>application/x-hpl</td>
+<td>.hqx</td>
+<td>application/mac-binhex40</td>
+</tr>
+<tr>
+<td>.hrf</td>
+<td>application/x-hrf</td>
+<td>.hta</td>
+<td>application/hta</td>
+</tr>
+<tr>
+<td>.htc</td>
+<td>text/x-component</td>
+<td>.htm</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.html</td>
+<td>text/html</td>
+<td>.htt</td>
+<td>text/webviewhtml</td>
+</tr>
+<tr>
+<td>.htx</td>
+<td>text/html</td>
+<td>.icb</td>
+<td>application/x-icb</td>
+</tr>
+<tr>
+<td>.ico</td>
+<td>image/x-icon</td>
+<td>.ico</td>
+<td>application/x-ico</td>
+</tr>
+<tr>
+<td>.iff</td>
+<td>application/x-iff</td>
+<td>.ig4</td>
+<td>application/x-g4</td>
+</tr>
+<tr>
+<td>.igs</td>
+<td>application/x-igs</td>
+<td>.iii</td>
+<td>application/x-iphone</td>
+</tr>
+<tr>
+<td>.img</td>
+<td>application/x-img</td>
+<td>.ins</td>
+<td>application/x-internet-signup</td>
+</tr>
+<tr>
+<td>.isp</td>
+<td>application/x-internet-signup</td>
+<td>.IVF</td>
+<td>video/x-ivf</td>
+</tr>
+<tr>
+<td>.java</td>
+<td>java/*</td>
+<td>.jfif</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>.jpe</td>
+<td>image/jpeg</td>
+<td>.jpe</td>
+<td>application/x-jpe</td>
+</tr>
+<tr>
+<td>.jpeg</td>
+<td>image/jpeg</td>
+<td>.jpg</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>.jpg</td>
+<td>application/x-jpg</td>
+<td>.js</td>
+<td>application/x-javascript</td>
+</tr>
+<tr>
+<td>.jsp</td>
+<td>text/html</td>
+<td>.la1</td>
+<td>audio/x-liquid-file</td>
+</tr>
+<tr>
+<td>.lar</td>
+<td>application/x-laplayer-reg</td>
+<td>.latex</td>
+<td>application/x-latex</td>
+</tr>
+<tr>
+<td>.lavs</td>
+<td>audio/x-liquid-secure</td>
+<td>.lbm</td>
+<td>application/x-lbm</td>
+</tr>
+<tr>
+<td>.lmsff</td>
+<td>audio/x-la-lms</td>
+<td>.ls</td>
+<td>application/x-javascript</td>
+</tr>
+<tr>
+<td>.ltr</td>
+<td>application/x-ltr</td>
+<td>.m1v</td>
+<td>video/x-mpeg</td>
+</tr>
+<tr>
+<td>.m2v</td>
+<td>video/x-mpeg</td>
+<td>.m3u</td>
+<td>audio/mpegurl</td>
+</tr>
+<tr>
+<td>.m4e</td>
+<td>video/mpeg4</td>
+<td>.mac</td>
+<td>application/x-mac</td>
+</tr>
+<tr>
+<td>.man</td>
+<td>application/x-troff-man</td>
+<td>.math</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.mdb</td>
+<td>application/msaccess</td>
+<td>.mdb</td>
+<td>application/x-mdb</td>
+</tr>
+<tr>
+<td>.mfp</td>
+<td>application/x-shockwave-flash</td>
+<td>.mht</td>
+<td>message/rfc822</td>
+</tr>
+<tr>
+<td>.mhtml</td>
+<td>message/rfc822</td>
+<td>.mi</td>
+<td>application/x-mi</td>
+</tr>
+<tr>
+<td>.mid</td>
+<td>audio/mid</td>
+<td>.midi</td>
+<td>audio/mid</td>
+</tr>
+<tr>
+<td>.mil</td>
+<td>application/x-mil</td>
+<td>.mml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.mnd</td>
+<td>audio/x-musicnet-download</td>
+<td>.mns</td>
+<td>audio/x-musicnet-stream</td>
+</tr>
+<tr>
+<td>.mocha</td>
+<td>application/x-javascript</td>
+<td>.movie</td>
+<td>video/x-sgi-movie</td>
+</tr>
+<tr>
+<td>.mp1</td>
+<td>audio/mp1</td>
+<td>.mp2</td>
+<td>audio/mp2</td>
+</tr>
+<tr>
+<td>.mp2v</td>
+<td>video/mpeg</td>
+<td>.mp3</td>
+<td>audio/mp3</td>
+</tr>
+<tr>
+<td>.mp4</td>
+<td>video/mpeg4</td>
+<td>.mpa</td>
+<td>video/x-mpg</td>
+</tr>
+<tr>
+<td>.mpd</td>
+<td>application/vnd.ms-project</td>
+<td>.mpe</td>
+<td>video/x-mpeg</td>
+</tr>
+<tr>
+<td>.mpeg</td>
+<td>video/mpg</td>
+<td>.mpg</td>
+<td>video/mpg</td>
+</tr>
+<tr>
+<td>.mpga</td>
+<td>audio/rn-mpeg</td>
+<td>.mpp</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mps</td>
+<td>video/x-mpeg</td>
+<td>.mpt</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mpv</td>
+<td>video/mpg</td>
+<td>.mpv2</td>
+<td>video/mpeg</td>
+</tr>
+<tr>
+<td>.mpw</td>
+<td>application/vnd.ms-project</td>
+<td>.mpx</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mtx</td>
+<td>text/xml</td>
+<td>.mxp</td>
+<td>application/x-mmxp</td>
+</tr>
+<tr>
+<td>.net</td>
+<td>image/pnetvue</td>
+<td>.nrf</td>
+<td>application/x-nrf</td>
+</tr>
+<tr>
+<td>.nws</td>
+<td>message/rfc822</td>
+<td>.odc</td>
+<td>text/x-ms-odc</td>
+</tr>
+<tr>
+<td>.out</td>
+<td>application/x-out</td>
+<td>.p10</td>
+<td>application/pkcs10</td>
+</tr>
+<tr>
+<td>.p12</td>
+<td>application/x-pkcs12</td>
+<td>.p7b</td>
+<td>application/x-pkcs7-certificates</td>
+</tr>
+<tr>
+<td>.p7c</td>
+<td>application/pkcs7-mime</td>
+<td>.p7m</td>
+<td>application/pkcs7-mime</td>
+</tr>
+<tr>
+<td>.p7r</td>
+<td>application/x-pkcs7-certreqresp</td>
+<td>.p7s</td>
+<td>application/pkcs7-signature</td>
+</tr>
+<tr>
+<td>.pc5</td>
+<td>application/x-pc5</td>
+<td>.pci</td>
+<td>application/x-pci</td>
+</tr>
+<tr>
+<td>.pcl</td>
+<td>application/x-pcl</td>
+<td>.pcx</td>
+<td>application/x-pcx</td>
+</tr>
+<tr>
+<td>.pdf</td>
+<td>application/pdf</td>
+<td>.pdf</td>
+<td>application/pdf</td>
+</tr>
+<tr>
+<td>.pdx</td>
+<td>application/vnd.adobe.pdx</td>
+<td>.pfx</td>
+<td>application/x-pkcs12</td>
+</tr>
+<tr>
+<td>.pgl</td>
+<td>application/x-pgl</td>
+<td>.pic</td>
+<td>application/x-pic</td>
+</tr>
+<tr>
+<td>.pko</td>
+<td>application/vnd.ms-pki.pko</td>
+<td>.pl</td>
+<td>application/x-perl</td>
+</tr>
+<tr>
+<td>.plg</td>
+<td>text/html</td>
+<td>.pls</td>
+<td>audio/scpls</td>
+</tr>
+<tr>
+<td>.plt</td>
+<td>application/x-plt</td>
+<td>.png</td>
+<td>image/png</td>
+</tr>
+<tr>
+<td>.png</td>
+<td>application/x-png</td>
+<td>.pot</td>
+<td>application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td>.ppa</td>
+<td>application/vnd.ms-powerpoint</td>
+<td>.ppm</td>
+<td>application/x-ppm</td>
+</tr>
+<tr>
+<td>.pps</td>
+<td>application/vnd.ms-powerpoint</td>
+<td>.ppt</td>
+<td>application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td>.ppt</td>
+<td>application/x-ppt</td>
+<td>.pr</td>
+<td>application/x-pr</td>
+</tr>
+<tr>
+<td>.prf</td>
+<td>application/pics-rules</td>
+<td>.prn</td>
+<td>application/x-prn</td>
+</tr>
+<tr>
+<td>.prt</td>
+<td>application/x-prt</td>
+<td>.ps</td>
+<td>application/x-ps</td>
+</tr>
+<tr>
+<td>.ps</td>
+<td>application/postscript</td>
+<td>.ptn</td>
+<td>application/x-ptn</td>
+</tr>
+<tr>
+<td>.pwz</td>
+<td>application/vnd.ms-powerpoint</td>
+<td>.r3t</td>
+<td>text/vnd.rn-realtext3d</td>
+</tr>
+<tr>
+<td>.ra</td>
+<td>audio/vnd.rn-realaudio</td>
+<td>.ram</td>
+<td>audio/x-pn-realaudio</td>
+</tr>
+<tr>
+<td>.ras</td>
+<td>application/x-ras</td>
+<td>.rat</td>
+<td>application/rat-file</td>
+</tr>
+<tr>
+<td>.rdf</td>
+<td>text/xml</td>
+<td>.rec</td>
+<td>application/vnd.rn-recording</td>
+</tr>
+<tr>
+<td>.red</td>
+<td>application/x-red</td>
+<td>.rgb</td>
+<td>application/x-rgb</td>
+</tr>
+<tr>
+<td>.rjs</td>
+<td>application/vnd.rn-realsystem-rjs</td>
+<td>.rjt</td>
+<td>application/vnd.rn-realsystem-rjt</td>
+</tr>
+<tr>
+<td>.rlc</td>
+<td>application/x-rlc</td>
+<td>.rle</td>
+<td>application/x-rle</td>
+</tr>
+<tr>
+<td>.rm</td>
+<td>application/vnd.rn-realmedia</td>
+<td>.rmf</td>
+<td>application/vnd.adobe.rmf</td>
+</tr>
+<tr>
+<td>.rmi</td>
+<td>audio/mid</td>
+<td>.rmj</td>
+<td>application/vnd.rn-realsystem-rmj</td>
+</tr>
+<tr>
+<td>.rmm</td>
+<td>audio/x-pn-realaudio</td>
+<td>.rmp</td>
+<td>application/vnd.rn-rn_music_package</td>
+</tr>
+<tr>
+<td>.rms</td>
+<td>application/vnd.rn-realmedia-secure</td>
+<td>.rmvb</td>
+<td>application/vnd.rn-realmedia-vbr</td>
+</tr>
+<tr>
+<td>.rmx</td>
+<td>application/vnd.rn-realsystem-rmx</td>
+<td>.rnx</td>
+<td>application/vnd.rn-realplayer</td>
+</tr>
+<tr>
+<td>.rp</td>
+<td>image/vnd.rn-realpix</td>
+<td>.rpm</td>
+<td>audio/x-pn-realaudio-plugin</td>
+</tr>
+<tr>
+<td>.rsml</td>
+<td>application/vnd.rn-rsml</td>
+<td>.rt</td>
+<td>text/vnd.rn-realtext</td>
+</tr>
+<tr>
+<td>.rtf</td>
+<td>application/msword</td>
+<td>.rtf</td>
+<td>application/x-rtf</td>
+</tr>
+<tr>
+<td>.rv</td>
+<td>video/vnd.rn-realvideo</td>
+<td>.sam</td>
+<td>application/x-sam</td>
+</tr>
+<tr>
+<td>.sat</td>
+<td>application/x-sat</td>
+<td>.sdp</td>
+<td>application/sdp</td>
+</tr>
+<tr>
+<td>.sdw</td>
+<td>application/x-sdw</td>
+<td>.sit</td>
+<td>application/x-stuffit</td>
+</tr>
+<tr>
+<td>.slb</td>
+<td>application/x-slb</td>
+<td>.sld</td>
+<td>application/x-sld</td>
+</tr>
+<tr>
+<td>.slk</td>
+<td>drawing/x-slk</td>
+<td>.smi</td>
+<td>application/smil</td>
+</tr>
+<tr>
+<td>.smil</td>
+<td>application/smil</td>
+<td>.smk</td>
+<td>application/x-smk</td>
+</tr>
+<tr>
+<td>.snd</td>
+<td>audio/basic</td>
+<td>.sol</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>.sor</td>
+<td>text/plain</td>
+<td>.spc</td>
+<td>application/x-pkcs7-certificates</td>
+</tr>
+<tr>
+<td>.spl</td>
+<td>application/futuresplash</td>
+<td>.spp</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.ssm</td>
+<td>application/streamingmedia</td>
+<td>.sst</td>
+<td>application/vnd.ms-pki.certstore</td>
+</tr>
+<tr>
+<td>.stl</td>
+<td>application/vnd.ms-pki.stl</td>
+<td>.stm</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.sty</td>
+<td>application/x-sty</td>
+<td>.svg</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.swf</td>
+<td>application/x-shockwave-flash</td>
+<td>.tdf</td>
+<td>application/x-tdf</td>
+</tr>
+<tr>
+<td>.tg4</td>
+<td>application/x-tg4</td>
+<td>.tga</td>
+<td>application/x-tga</td>
+</tr>
+<tr>
+<td>.tif</td>
+<td>image/tiff</td>
+<td>.tif</td>
+<td>application/x-tif</td>
+</tr>
+<tr>
+<td>.tiff</td>
+<td>image/tiff</td>
+<td>.tld</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.top</td>
+<td>drawing/x-top</td>
+<td>.torrent</td>
+<td>application/x-bittorrent</td>
+</tr>
+<tr>
+<td>.tsd</td>
+<td>text/xml</td>
+<td>.txt</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>.uin</td>
+<td>application/x-icq</td>
+<td>.uls</td>
+<td>text/iuls</td>
+</tr>
+<tr>
+<td>.vcf</td>
+<td>text/x-vcard</td>
+<td>.vda</td>
+<td>application/x-vda</td>
+</tr>
+<tr>
+<td>.vdx</td>
+<td>application/vnd.visio</td>
+<td>.vml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.vpg</td>
+<td>application/x-vpeg005</td>
+<td>.vsd</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vsd</td>
+<td>application/x-vsd</td>
+<td>.vss</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vst</td>
+<td>application/vnd.visio</td>
+<td>.vst</td>
+<td>application/x-vst</td>
+</tr>
+<tr>
+<td>.vsw</td>
+<td>application/vnd.visio</td>
+<td>.vsx</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vtx</td>
+<td>application/vnd.visio</td>
+<td>.vxml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.wav</td>
+<td>audio/wav</td>
+<td>.wax</td>
+<td>audio/x-ms-wax</td>
+</tr>
+<tr>
+<td>.wb1</td>
+<td>application/x-wb1</td>
+<td>.wb2</td>
+<td>application/x-wb2</td>
+</tr>
+<tr>
+<td>.wb3</td>
+<td>application/x-wb3</td>
+<td>.wbmp</td>
+<td>image/vnd.wap.wbmp</td>
+</tr>
+<tr>
+<td>.wiz</td>
+<td>application/msword</td>
+<td>.wk3</td>
+<td>application/x-wk3</td>
+</tr>
+<tr>
+<td>.wk4</td>
+<td>application/x-wk4</td>
+<td>.wkq</td>
+<td>application/x-wkq</td>
+</tr>
+<tr>
+<td>.wks</td>
+<td>application/x-wks</td>
+<td>.wm</td>
+<td>video/x-ms-wm</td>
+</tr>
+<tr>
+<td>.wma</td>
+<td>audio/x-ms-wma</td>
+<td>.wmd</td>
+<td>application/x-ms-wmd</td>
+</tr>
+<tr>
+<td>.wmf</td>
+<td>application/x-wmf</td>
+<td>.wml</td>
+<td>text/vnd.wap.wml</td>
+</tr>
+<tr>
+<td>.wmv</td>
+<td>video/x-ms-wmv</td>
+<td>.wmx</td>
+<td>video/x-ms-wmx</td>
+</tr>
+<tr>
+<td>.wmz</td>
+<td>application/x-ms-wmz</td>
+<td>.wp6</td>
+<td>application/x-wp6</td>
+</tr>
+<tr>
+<td>.wpd</td>
+<td>application/x-wpd</td>
+<td>.wpg</td>
+<td>application/x-wpg</td>
+</tr>
+<tr>
+<td>.wpl</td>
+<td>application/vnd.ms-wpl</td>
+<td>.wq1</td>
+<td>application/x-wq1</td>
+</tr>
+<tr>
+<td>.wr1</td>
+<td>application/x-wr1</td>
+<td>.wri</td>
+<td>application/x-wri</td>
+</tr>
+<tr>
+<td>.wrk</td>
+<td>application/x-wrk</td>
+<td>.ws</td>
+<td>application/x-ws</td>
+</tr>
+<tr>
+<td>.ws2</td>
+<td>application/x-ws</td>
+<td>.wsc</td>
+<td>text/scriptlet</td>
+</tr>
+<tr>
+<td>.wsdl</td>
+<td>text/xml</td>
+<td>.wvx</td>
+<td>video/x-ms-wvx</td>
+</tr>
+<tr>
+<td>.xdp</td>
+<td>application/vnd.adobe.xdp</td>
+<td>.xdr</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xfd</td>
+<td>application/vnd.adobe.xfd</td>
+<td>.xfdf</td>
+<td>application/vnd.adobe.xfdf</td>
+</tr>
+<tr>
+<td>.xhtml</td>
+<td>text/html</td>
+<td>.xls</td>
+<td>application/vnd.ms-excel</td>
+</tr>
+<tr>
+<td>.xls</td>
+<td>application/x-xls</td>
+<td>.xlw</td>
+<td>application/x-xlw</td>
+</tr>
+<tr>
+<td>.xml</td>
+<td>text/xml</td>
+<td>.xpl</td>
+<td>audio/scpls</td>
+</tr>
+<tr>
+<td>.xq</td>
+<td>text/xml</td>
+<td>.xql</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xquery</td>
+<td>text/xml</td>
+<td>.xsd</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xsl</td>
+<td>text/xml</td>
+<td>.xslt</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xwd</td>
+<td>application/x-xwd</td>
+<td>.x_b</td>
+<td>application/x-x_b</td>
+</tr>
+<tr>
+<td>.sis</td>
+<td>application/vnd.symbian.install</td>
+<td>.sisx</td>
+<td>application/vnd.symbian.install</td>
+</tr>
+<tr>
+<td>.x_t</td>
+<td>application/x-x_t</td>
+<td>.ipa</td>
+<td>application/vnd.iphone</td>
+</tr>
+<tr>
+<td>.apk</td>
+<td>application/vnd.android.package-archive</td>
+<td>.xap</td>
+<td>application/x-silverlight-app</td>
+</tr>
+</tbody></table>
+<p>5.<code>[content-Disposition]--attachment;filename=aaa.zip</code>  –以下载方式打开资源</p>
+<blockquote>
+<p>// 文件扩展名为.*（ 二进制流，不知道下载文件类型）设置为application/octet-stream<br>response.setHeader(“content-type”, “application/octet-stream”);<br>// 告诉浏览器以下载对方式打开<br>response.setHeader(“Content-Disposition”, “attachment;filename=” + URLEncoder.encode(fileName, “UTF-8”));</p>
+<p>//设置响应的编码</p>
+<p>response.setCharacterEncoding(“UTF-8”);</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">File file&#x3D;new File(&quot;文件的url&quot;);</span><br><span class="line">&#x2F;&#x2F; 文件扩展名为.*（ 二进制流，不知道下载文件类型）设置为application&#x2F;octet-stream</span><br><span class="line">response.setHeader(&quot;content-type&quot;, &quot;application&#x2F;octet-stream&quot;);</span><br><span class="line">&#x2F;&#x2F;告诉浏览器以下载对方式打开</span><br><span class="line">response.setHeader(&quot;content-disposition&quot;,&quot;attachment;filename&#x3D;&quot;+file.getName());</span><br><span class="line">&#x2F;&#x2F;1)读取本地文件</span><br><span class="line">FileInputStream in&#x3D;new FileInputstream(file);</span><br><span class="line">&#x2F;&#x2F;2)写该浏览器（字节内容）</span><br><span class="line">outputStream out&#x3D;response.getOutputStream();</span><br><span class="line">byte[] buf&#x3D;new byte[1024];</span><br><span class="line">int len&#x3D;0;</span><br><span class="line">&#x2F;&#x2F;边读边写</span><br><span class="line">while((len&#x3D;in.read(buf))!-1)&#123;</span><br><span class="line">   out.write(buf,0,len);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;关闭资源</span><br><span class="line">in.close();</span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果是上传到<code>fastDFS</code>中的图片,下载时会返回一个字节数组,当响应给浏览器下载图片时的操作,只需要获取输出流,把字节数组写给响应对象即可<code>outputStream.write(bytes);</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;download&quot;)</span><br><span class="line">   public void downloadFile(String fileUrl, HttpServletResponse response) throws IOException &#123;</span><br><span class="line">       &#x2F;&#x2F;到fastDFS中下载图片</span><br><span class="line">       byte[] bytes &#x3D; dfsUtils.downloadFile(fileUrl);</span><br><span class="line">	&#x2F;&#x2F; 获取文件名</span><br><span class="line">       String fileName &#x3D; fileUrl.substring(fileUrl.lastIndexOf(&quot;&#x2F;&quot;) + 1);</span><br><span class="line">       &#x2F;&#x2F; 文件扩展名为.* 结尾的（ 二进制流，不知道下载文件类型）设置为application&#x2F;octet-stream</span><br><span class="line">       response.setHeader(&quot;content-type&quot;, &quot;application&#x2F;octet-stream&quot;);</span><br><span class="line">       &#x2F;&#x2F; 这里只是为了整合fastdfs，所以写死了文件格式。需要在上传的时候保存文件名。下载的时候使用对应的格式</span><br><span class="line">       &#x2F;&#x2F; 告诉浏览器以下载对方式打开</span><br><span class="line">       response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename&#x3D;&quot; + URLEncoder.encode(fileName, &quot;UTF-8&quot;));</span><br><span class="line">       response.setCharacterEncoding(&quot;UTF-8&quot;);</span><br><span class="line">       ServletOutputStream outputStream &#x3D; null;</span><br><span class="line">       try &#123;</span><br><span class="line">           &#x2F;&#x2F; 创建输出对象</span><br><span class="line">           outputStream &#x3D; response.getOutputStream();</span><br><span class="line">           outputStream.write(bytes);</span><br><span class="line">       &#125; catch (IOException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; finally &#123;</span><br><span class="line">           try &#123;</span><br><span class="line">               outputStream.flush();</span><br><span class="line">               outputStream.close();</span><br><span class="line">           &#125; catch (Exception e) &#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2018/04/12/JavaEE/http%E5%8D%8F%E8%AE%AE/">https://zysheep.cn/2018/04/12/JavaEE/http协议/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaEE/">JavaEE</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2018/04/13/JavaEE/jsp%E6%8A%80%E6%9C%AF/"><img class="prev_cover" src="http://cdn.panyucable.cn/zysheep/jsp_cover.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">jsp技术</div></div></a></div><div class="next-post pull_right"><a href="/2018/04/11/JavaEE/El%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><img class="next_cover" src="http://cdn.panyucable.cn/zysheep/1737x1152.jfif" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">El表达式</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2018/04/14/JavaEE/Servlet技术/" title="Servlet技术"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/1532x1022.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-14</div><div class="relatedPosts_title">Servlet技术</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/13/JavaEE/jsp技术/" title="jsp技术"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/jsp_cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-13</div><div class="relatedPosts_title">jsp技术</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/11/JavaEE/El表达式/" title="El表达式"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/1737x1152.jfif"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-11</div><div class="relatedPosts_title">El表达式</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '502b8308721b081071a5',
+  clientSecret: '35220d15c7f8aaf585d6822cf5d49fedf5b602d6',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://cdn.panyucable.cn/zysheep/http_logo.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
