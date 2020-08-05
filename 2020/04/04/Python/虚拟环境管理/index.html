@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>虚拟环境管理 | 三月三</title><meta name="description" content="管理虚拟环境和其他大多数现代编程语言一样，Python对包和模块的下载、存储以及管理有其自己的一套方法。Python的包一般存在几个地方，使用sys.path可以查看python包和模块的存放路径。 12import sysprint(sys.path)  输出结果： 12345678910111213[&#39;D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\py"><meta name="keywords" content="Python"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="虚拟环境管理"><meta name="twitter:description" content="管理虚拟环境和其他大多数现代编程语言一样，Python对包和模块的下载、存储以及管理有其自己的一套方法。Python的包一般存在几个地方，使用sys.path可以查看python包和模块的存放路径。 12import sysprint(sys.path)  输出结果： 12345678910111213[&#39;D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\py"><meta name="twitter:image" content="http://cdn.panyucable.cn/zysheep/Python_cover.png"><meta property="og:type" content="article"><meta property="og:title" content="虚拟环境管理"><meta property="og:url" content="https://zysheep.cn/2020/04/04/Python/%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/"><meta property="og:site_name" content="三月三"><meta property="og:description" content="管理虚拟环境和其他大多数现代编程语言一样，Python对包和模块的下载、存储以及管理有其自己的一套方法。Python的包一般存在几个地方，使用sys.path可以查看python包和模块的存放路径。 12import sysprint(sys.path)  输出结果： 12345678910111213[&#39;D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\py"><meta property="og:image" content="http://cdn.panyucable.cn/zysheep/Python_cover.png"><meta property="article:published_time" content="2020-04-04T04:30:45.000Z"><meta property="article:modified_time" content="2020-07-27T06:33:42.973Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2020/04/04/Python/%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/"><link rel="prev" title="Flask学习" href="https://zysheep.cn/2020/04/06/Python/Flask%E5%AD%A6%E4%B9%A0/"><link rel="next" title="Python3简介" href="https://zysheep.cn/2020/04/03/Python/Python%E5%87%A0%E9%97%AE/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/img41.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">205</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">46</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">68</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#管理虚拟环境"><span class="toc-number">1.</span> <span class="toc-text">管理虚拟环境</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux下搭建Python虚拟环境"><span class="toc-number"></span> <span class="toc-text">Linux下搭建Python虚拟环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows下搭建Python虚拟环境"><span class="toc-number"></span> <span class="toc-text">Windows下搭建Python虚拟环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-新建虚拟环境"><span class="toc-number">0.1.</span> <span class="toc-text">2. 新建虚拟环境</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://cdn.panyucable.cn/zysheep/Python_logo.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于三月三</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">虚拟环境管理</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-04-04 12:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-04-04</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-07-27 14:33:42"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-07-27</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Python/">Python</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1.1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 3 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2020/04/04/Python/%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="管理虚拟环境"><a href="#管理虚拟环境" class="headerlink" title="管理虚拟环境"></a>管理虚拟环境</h2><p>和其他大多数现代编程语言一样，Python对包和模块的下载、存储以及管理有其自己的一套方法。Python的包一般存在几个地方，使用<code>sys.path</code>可以查看python包和模块的存放路径。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(sys.path)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\python\\helpers\\pydev'</span>,</span><br><span class="line"> <span class="string">'D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\python\\helpers\\pycharm_display'</span>,</span><br><span class="line"> <span class="string">'D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\python\\helpers\\third_party\\thriftpy'</span>,</span><br><span class="line"> <span class="string">'D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\python\\helpers\\pydev'</span>,</span><br><span class="line"> <span class="string">'C:\\Users\\L15096000421\\AppData\\Local\\Programs\\Python\\Python38\\python38.zip'</span>,</span><br><span class="line"> <span class="string">'C:\\Users\\L15096000421\\AppData\\Local\\Programs\\Python\\Python38\\DLLs'</span>,</span><br><span class="line"> <span class="string">'C:\\Users\\L15096000421\\AppData\\Local\\Programs\\Python\\Python38\\lib'</span>,</span><br><span class="line"> <span class="string">'C:\\Users\\L15096000421\\AppData\\Local\\Programs\\Python\\Python38'</span>,</span><br><span class="line"> <span class="string">'C:\\Users\\L15096000421\\AppData\\Local\\Programs\\Python\\Python38\\lib\\site-packages'</span>,</span><br><span class="line"> <span class="string">'D:\\kaifagongju\\PyCharm 2020.1.3\\plugins\\python\\helpers\\pycharm_matplotlib_backend'</span>,</span><br><span class="line"> <span class="string">'C:\\Users\\L15096000421\\AppData\\Local\\Programs\\Python\\Python38\\lib\\site-packages\\IPython\\extensions'</span>,</span><br><span class="line"> <span class="string">'G:\\python_workspace\\code'</span>,</span><br><span class="line"> <span class="string">'G:/python_workspace/code'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这里列出了python里查找包或者模块时的所有可用路径，其中<code>&#39;&#39;</code>表示的是当前项目的目录，一般情况下，我们需要关注的是使用<code>pip install</code>指令下载的第三方资源包。这个第三方资源包被存放在了<code>&#39;/usr/local/lib/python3.8/dist-packages&#39;</code>目录下，这里就带来了一个问题，当我们同时开发多个工程时，不同的工程会将第三方的包存放在相同的路径下。这就意味着，如果有两个工程依赖同一个包，但是所需要的版本却不一样，比如工程A依赖v1.0.0，而工程B依赖v2.0.0。由于Python无法根据版本来区分包的安装路径，所以这里就会发生版本冲突。</p>
+<h1 id="Linux下搭建Python虚拟环境"><a href="#Linux下搭建Python虚拟环境" class="headerlink" title="Linux下搭建Python虚拟环境"></a>Linux下搭建Python虚拟环境</h1><p>##安装virtualenv</p>
+<p>virtualenv 是一个创建隔绝的Python环境的工具。virtualenv创建一个包含所有必要的可执行文件的文件夹，用来使用Python工程所需的包。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>安装完成以后，可以使用命令快速的创建、激活虚拟环境。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd my_project  # 进入到工程的工作目录</span><br><span class="line">virtualenv test  # 创建虚拟环境，并命名为test.此时会在my_project下多出一个test的文件夹</span><br><span class="line">source test/bin/activate # 激活虚拟环境。此时，如果使用pip install安装的插件，都会被安装到当前虚拟环境</span><br><span class="line">pip install flask  # 测试安装flask. flask会被安装到当前虚拟环境，而不是全局环境</span><br></pre></td></tr></table></figure>
+
+<p>##安装virtualenvwrapper</p>
+<p>安装virtualenv以后，已经可以创建和激活虚拟环境了，但是使用起来却不是那么的方便。我们可以在安装一个virtualenvwrapper工具，它可以更加方便的帮我们管理虚拟环境。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install virtualenvwrapper</span><br></pre></td></tr></table></figure>
+
+<p>安装完成以后，在~/.bashrc文件下添加以下内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3</span><br><span class="line">export WORKON_HOME=~/.envs</span><br><span class="line">source /usr/local/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
+
+<p>保存以后，再执行以下指令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>下面我们就可以很方便的管理虚拟环境了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv test  # 创建并切换到test虚拟环境</span><br><span class="line">deactivate  # 离开test虚拟环境</span><br><span class="line">rmvirtualenv test # 删除test虚拟环境</span><br><span class="line">workon demo # 切换到demo虚拟环境</span><br></pre></td></tr></table></figure>
+
+<h1 id="Windows下搭建Python虚拟环境"><a href="#Windows下搭建Python虚拟环境" class="headerlink" title="Windows下搭建Python虚拟环境"></a>Windows下搭建Python虚拟环境</h1><p>##一. 安装 <code>virtualenv</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-新建虚拟环境"><a href="#2-新建虚拟环境" class="headerlink" title="2. 新建虚拟环境"></a>2. 新建虚拟环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env1</span><br></pre></td></tr></table></figure>
+
+<p>用 Python3 创建虚拟环境：<br> virtualenv  -p (python3安装路径) （虚拟环境名字）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">virtualenv</span>  <span class="selector-tag">-p</span> <span class="selector-tag">C</span>:\<span class="selector-tag">Users</span>\<span class="selector-tag">Administrator</span>\<span class="selector-tag">AppData</span>\<span class="selector-tag">Local</span>\<span class="selector-tag">Programs</span>\<span class="selector-tag">Python</span>\<span class="selector-tag">Python38</span>\<span class="selector-tag">python</span><span class="selector-class">.exe</span> <span class="selector-tag">python3</span></span><br></pre></td></tr></table></figure>
+
+<p>(python3是虚拟环境名字)</p>
+<p>###3. 激活虚拟环境</p>
+<p>1）进入虚拟环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> env1</span><br></pre></td></tr></table></figure>
+
+<p>2）进入脚本目录 <code>Scripts</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>  Scripts</span><br></pre></td></tr></table></figure>
+
+<p>3）运行activate.bat</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">activate</span><span class="selector-class">.bat</span></span><br></pre></td></tr></table></figure>
+
+<p>###4. 退出虚拟环境</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">deactivate</span><span class="selector-class">.bat</span></span><br></pre></td></tr></table></figure>
+
+<p>##二、安装使用 virtualenvwrapper</p>
+<p><code>virtualenvwrapper</code>是对 virtualenv 的功能扩展，可以管理全部的虚拟环境，用单个命令方便切换不同的虚拟环境。</p>
+<p>####1. 安装 virtualenvwrapper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenvwrapper-win</span><br></pre></td></tr></table></figure>
+
+<p>####2. 设置workon_home环境变量</p>
+<p>默认创建的虚拟环境的路径在 <code>C:\Users\Administrator\Envs</code>\</p>
+<p><img src="http://cdn.panyucable.cn/zysheep/QQ%E6%88%AA%E5%9B%BE20200727120905.png" alt=""></p>
+<p>####3. 新建虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv env2</span><br></pre></td></tr></table></figure>
+
+<p>使用 Python3 创建虚拟环境<br> mkvirtualenv –python=(python3安装路径) (虚拟环境名字)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv --python&#x3D;C:\Users\Administrator\AppData\Local\Programs\Python\Python35\python.exe python35</span><br></pre></td></tr></table></figure>
+
+<p>####4.  查看安装的所有虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workon</span><br></pre></td></tr></table></figure>
+
+<p>####5 . 进入虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workon env2</span><br></pre></td></tr></table></figure>
+
+<p>####6. 退出虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+
+<p>####7.删除虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmvirtualenv 环境名</span><br></pre></td></tr></table></figure>
+
+<p>####8.列出虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsvirtualenv</span><br></pre></td></tr></table></figure>
+
+<p>####9.进入到虚拟环境目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cdvirtualenv 环境名</span><br></pre></td></tr></table></figure></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2020/04/04/Python/%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">https://zysheep.cn/2020/04/04/Python/虚拟环境管理/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a></div><div class="post_share"><div class="social-share" data-image="http://cdn.panyucable.cn/zysheep/flask_cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/04/06/Python/Flask%E5%AD%A6%E4%B9%A0/"><img class="prev_cover" src="http://cdn.panyucable.cn/zysheep/flask_cover.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Flask学习</div></div></a></div><div class="next-post pull_right"><a href="/2020/04/03/Python/Python%E5%87%A0%E9%97%AE/"><img class="next_cover" src="http://cdn.panyucable.cn/zysheep/Python_cover.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python3简介</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/04/06/Python/Flask学习/" title="Flask学习"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/flask_cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-06</div><div class="relatedPosts_title">Flask学习</div></div></a></div><div class="relatedPosts_item"><a href="/2020/04/03/Python/Python几问/" title="Python3简介"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/Python_cover.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-03</div><div class="relatedPosts_title">Python3简介</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '502b8308721b081071a5',
+  clientSecret: '35220d15c7f8aaf585d6822cf5d49fedf5b602d6',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://cdn.panyucable.cn/zysheep/Python_logo.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text"><a href="http://zysheep.github.io/" target="_blank" rel="noopener">三月三</a>,专门为你制造快乐的网站</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
