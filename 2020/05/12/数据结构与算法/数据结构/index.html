@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>洞察数据结构的美 | 三月三</title><meta name="description" content="原码，反码，补码由计算机的硬件决定，任何存储于计算机中的数据，其本质都是以二进制码存储。根据冯~诺依曼提出的经典计算机体系结构框架。一台计算机由运算器，控制器，存储器，输入和输出设备组成。其中运算器，只有加法运算器，没有减法运算器（据说一开始是有的，后来由于减法器硬件开销太大，被废了 ）所以，计算机中的没法直接做减法的，它的减法是通过加法来实现的。你也许会说，现实世界中所有的减法也可以当成加法的，"><meta name="keywords" content="数据结构,算法"><meta name="author" content="三月三"><meta name="copyright" content="三月三"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="http://cdn.panyucable.cn/zysheep/ico.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="洞察数据结构的美"><meta name="twitter:description" content="原码，反码，补码由计算机的硬件决定，任何存储于计算机中的数据，其本质都是以二进制码存储。根据冯~诺依曼提出的经典计算机体系结构框架。一台计算机由运算器，控制器，存储器，输入和输出设备组成。其中运算器，只有加法运算器，没有减法运算器（据说一开始是有的，后来由于减法器硬件开销太大，被废了 ）所以，计算机中的没法直接做减法的，它的减法是通过加法来实现的。你也许会说，现实世界中所有的减法也可以当成加法的，"><meta name="twitter:image" content="http://cdn.panyucable.cn/zysheep/al1_top.jpg"><meta property="og:type" content="article"><meta property="og:title" content="洞察数据结构的美"><meta property="og:url" content="https://zysheep.cn/2020/05/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><meta property="og:site_name" content="三月三"><meta property="og:description" content="原码，反码，补码由计算机的硬件决定，任何存储于计算机中的数据，其本质都是以二进制码存储。根据冯~诺依曼提出的经典计算机体系结构框架。一台计算机由运算器，控制器，存储器，输入和输出设备组成。其中运算器，只有加法运算器，没有减法运算器（据说一开始是有的，后来由于减法器硬件开销太大，被废了 ）所以，计算机中的没法直接做减法的，它的减法是通过加法来实现的。你也许会说，现实世界中所有的减法也可以当成加法的，"><meta property="og:image" content="http://cdn.panyucable.cn/zysheep/al1_top.jpg"><meta property="article:published_time" content="2020-05-11T22:30:45.000Z"><meta property="article:modified_time" content="2020-11-10T07:37:03.436Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://zysheep.cn/2020/05/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><link rel="prev" title="死磕算法,头破血流" href="https://zysheep.cn/2020/05/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/"><link rel="next" title="Java 11 新特性" href="https://zysheep.cn/2020/04/12/JavaSE/jdk11/jdk11%E6%96%B0%E7%89%B9%E6%80%A7/"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7f671f0f6d996680d21d5c32a23a9313";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://zysheep.github.io/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/hideCategory.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://cdn.panyucable.cn/zysheep/xiaoman.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">219</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">72</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#原码，反码，补码"><span class="toc-number">1.</span> <span class="toc-text">原码，反码，补码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java中的-lt-lt-和-gt-gt-和-gt-gt-gt-详细分析"><span class="toc-number">2.</span> <span class="toc-text">Java中的&lt;&lt; 和 &gt;&gt; 和 &gt;&gt;&gt; 详细分析</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(http://cdn.panyucable.cn/zysheep/110258139.png)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">三月三</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bug" aria-hidden="true"></i><span> 编程路线</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/java/"><i class="fa-fw fa fa-coffee"></i><span> Java</span></a></li><li><a class="site-page" href="/python/"><i class="fa-fw fa fa-binoculars"></i><span> Python</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-folder-open" aria-hidden="true"></i><span> 面试宝典</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/interview/"><i class="fa-fw fa fa-file-text-o"></i><span> Java面试题</span></a></li></ul></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 我的生活</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-picture-o"></i><span> Gallery</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">洞察数据结构的美</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-12 06:30:45"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-12</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-11-10 15:37:03"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-11-10</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">2.1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>阅读时长: 6 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-comment-o" aria-hidden="true"></i><span>评论数:</span><a href="/2020/05/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="原码，反码，补码"><a href="#原码，反码，补码" class="headerlink" title="原码，反码，补码"></a>原码，反码，补码</h1><p>由计算机的硬件决定，任何存储于计算机中的数据，其<code>本质都是以二进制码存储。</code>根据冯~诺依曼提出的经典计算机体系结构框架。一台计算机由<code>运算器，控制器，存储器，输入和输出设备组成。</code>其中运算器，只有加法运算器，没有减法运算器（据说一开始是有的，后来由于减法器硬件开销太大，被废了 ）所以，<code>计算机中的没法直接做减法的，它的减法是通过加法来实现的。</code>你也许会说，现实世界中所有的减法也可以当成加法的，减去一个数，可以看作加上这个数的相反数。当然没错，但是前提是要先有负数的概念。这就为什么不得不引入一个该死的符号位。</p>
+<ol>
+<li><code>而且从硬件的角度上看，只有正数加负数才算减法。</code></li>
+<li><code>正数与正数相加，负数与负数相加，其实都可以通过加法器直接相加。</code></li>
+</ol>
+<blockquote>
+<p>原码，反码，补码的产生过程，就是为了解决，计算机做减法和引入符号位（正号和负号）的问题。</p>
+</blockquote>
+<blockquote>
+<p>在原码，反码表示法中，我们把减法化为加法的思维是减去一个数，等于加上一个数的相反数，结果发现引入了符号位，却因为符号位造成了各种意向不到的问题。但是从上面的例子中，我们可以看到其实减去一个数，<code>对于数值有限制，有溢出的运算（模运算）来说，其实也相当于加上这个数的同余数。</code></p>
+<p>也就是说，我们<code>不引入负数的概念，就可以把减法当成加法来算</code>。所以接下来我们聊4位二进制数的运算，也不必急于引入符号位。因为<code>补码的思想，把减法当成加法时并不是必须要引入符号位的</code>。</p>
+<p>而且我们可以通过下面的例子，也许能回答另一个问题，<code>为什么负数的符号位是‘1’，而不是正数的符号位是‘1’。</code></p>
+</blockquote>
+<p><strong>原码</strong>:是最简单的机器数表示法。用最高位表示符号位，‘1’表示负号，‘0’表示正号。其他位存放该数的二进制的绝对值。</p>
+<p>若以带符号位的四位二进值数为例 </p>
+<ol>
+<li><code>1010 ： 最高位为‘1’,表示这是一个负数，其他三位为‘010’，</code></li>
+<li><code>即（0*2^2）+（1*2^1）+（0*2^0）=2（‘^’表示幂运算符）</code></li>
+<li><code>所以1010表示十进制数（-2）。</code></li>
+</ol>
+<p>下图给出部份正负数数的二进制原码表示法</p>
+<p><img src="https://img-blog.csdn.net/2018072421123442?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXdlbl9h/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>OK，原码表示法很简单有没有，虽然出现了+0和-0，但是直观易懂。<br>于是，我们高兴的开始运算。</p>
+<ol>
+<li><code>0001+0010=0011 （1+2=3）OK</code></li>
+<li><code>0000+1000=1000 （+0+（-0）=-0） 额，问题不大</code></li>
+<li><code>0001+1001=1010 （1+（-1）=-2）</code></li>
+</ol>
+<p>噢，<code>1+（-1）=-2</code>，这仿佛是在逗我呢。</p>
+<p>于是我们可以看到其实正数之间的加法通常是不会出错的，因为它就是一个很简单的二进制加法。</p>
+<p>而正数与负数相加，或负数与负数相加，就要引起莫名其妙的结果，这都是该死的符号位引起的。0分为<code>+0</code>和<code>-0</code>也是因他而起。</p>
+<p>所以原码，虽然直观易懂，易于正值转换。但用来实现加减法的话，运算规则总归是太复杂。于是反码来了。</p>
+<p><strong>反码：</strong></p>
+<ol>
+<li><p>正数的反码还是等于原码</p>
+</li>
+<li><p>负数的反码就是他的原码除符号位外，按位取反。</p>
+</li>
+</ol>
+<p>若以带符号位的四位二进制数为例：</p>
+<ol>
+<li><code>3是正数，反码与原码相同，则可以表示为0011</code></li>
+<li><code>-3的原码是1011，符号位保持不变，低三位（011）按位取反得（100）</code></li>
+<li><code>所以-3的反码为1100</code></li>
+</ol>
+<p>下图给出部分正负数的二进制数反码表示法</p>
+<p><img src="https://img-blog.csdn.net/20180724211333947?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poaXdlbl9h/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>对着上图，我们再试着用反码的方式解决一下原码的问题</p>
+<blockquote>
+<p>0001+1110=1111 （1+（-1）= - 0）</p>
+<p>互为相反数相加等于0，解决。<code>虽然是得到的结果是1111也就是-0</code>(补码解决该问题)</p>
+</blockquote>
+<p>好，我们再试着做一下两个负数相加</p>
+<blockquote>
+<p>1110（-1）+1101（-2）=1011（-4）  1011结果为反码 (-4为原码)</p>
+</blockquote>
+<p>噢，好像又出现了新问题</p>
+<blockquote>
+<p>（-1）+（-2）=（-4）?</p>
+</blockquote>
+<p>不过好像问题不大，因为1011（是-4的反码，但是从原码来看，他其实是-3。巧合吗？）</p>
+<p>我们再看个例子吧</p>
+<blockquote>
+<p>1110（-1）+1100（-3）=1010（-5）</p>
+</blockquote>
+<p>确实是巧合，<strong>看来相反数问题是解决了，但是却让两个负数相加的出错了。</strong></p>
+<p>但是实际上，两个负数相加出错其实问题不大。我们回头想想我们的目的是什么？是解决做减法的问题，把减法当成加法来算。</p>
+<blockquote>
+<p>两个正数相加和两个负数相加，其实都是一个加法问题，只是有无符号位罢了。而正数+负数才是真正的减法问题。</p>
+</blockquote>
+<p>也就是说只要正数+负数不会出错，那么就没问题了。负数加负数出错没关系的，负数的本质就是正数加上一个符号位而已。</p>
+<p>在原码表示法中两个负数相加，其实在不溢出的情况下结果就只有符号位出错而已<code>（1001+1010=0011）</code></p>
+<p>反码的负数相加出错，其实问题不大。我们只需要加实现两个负数加法时，将两个负数反码包括符号位全部按位取反相加，然后再给他的<strong>符号位强行置‘1’</strong>就可以了。</p>
+<p>所以反码表示法其实已经解决了减法的问题，他不仅不会像原码那样出现两个相反数相加不为零的情况，而且对于任意的一个正数加负数，如：<br><code>0001（1）+1101（-2）=1110（-1）</code> 计算结果是正确的。所以反码与原码比较，最大的优点，就在于解决了减法的问题。</p>
+<p>但是我们还是不满足为什么 <code>0001+1110=1111 （1+（-1）=-0）</code> 为什么是<code>-0</code>呢</p>
+<p>而且虽然说两个负数相加问题不大，但是问题不大，也是问题呀。好吧，处女座。接下来就介绍我们的大boss<code>补码</code>。</p>
+<p><strong>补码：</strong></p>
+<ol>
+<li>正数的补码等于他的原码</li>
+<li>负数的补码等于反码+1。（这只是一种算补码的方式，多数书对于补码就是这句话）</li>
+</ol>
+<p>在《计算机组成原理中》，补码的另外一种算法 是</p>
+<blockquote>
+<p>负数的补码等于他的原码自低位向高位，尾数的第一个‘1’及其右边的‘0’保持不变，左边的各位按位取反，符号位不变。</p>
+</blockquote>
+<p><strong>总结:</strong></p>
+<ol>
+<li>负数的补码等于反码加一</li>
+<li>反码是原码除符号位，按位取反。补码等于反码加一</li>
+</ol>
+<h1 id="Java中的-lt-lt-和-gt-gt-和-gt-gt-gt-详细分析"><a href="#Java中的-lt-lt-和-gt-gt-和-gt-gt-gt-详细分析" class="headerlink" title="Java中的&lt;&lt; 和 &gt;&gt; 和 &gt;&gt;&gt; 详细分析"></a>Java中的&lt;&lt; 和 &gt;&gt; 和 &gt;&gt;&gt; 详细分析</h1><p><strong>&lt;&lt;表示左移移，不分正负数，低位补0；</strong>　</p>
+<p>注：以下数据类型默认为byte-8位</p>
+<p>左移时不管正负，低位补0</p>
+<p>正数：<strong>r = 20 &lt;&lt; 2</strong></p>
+<p>　　20的二进制补码：<strong>0001 0100</strong></p>
+<p>　　向左移动两位后：<strong>0101 0000</strong></p>
+<p>　　　　  　　结果：<strong>r = 80</strong></p>
+<p>负数：<strong>r = -20 &lt;&lt; 2</strong></p>
+<p>　　-20 的二进制原码 ：<strong>1001 0100</strong></p>
+<p>　　-20 的二进制反码 <strong>：1110 1011</strong></p>
+<p>　　-20 的二进制补码 ：<strong>1110 1100</strong></p>
+<p>　　左移两位后的补码：<strong>1011 0000</strong></p>
+<p>　　　　　　　　反码:  <strong>1010 1111</strong></p>
+<p>　　　　　　　　原码：<strong>1101 0000</strong></p>
+<p>　　　　　　　　结果：*<em>r = -80<br>*</em></p>
+<p><strong>&gt;&gt;表示右移，如果该数为正，则高位补0，若为负数，则高位补1；</strong></p>
+<p>注：以下数据类型默认为byte-8位</p>
+<p>正数：<strong>r = 20 &gt;&gt; 2</strong></p>
+<p>　　20的二进制补码：<strong>0001 0100</strong></p>
+<p>　　向右移动两位后：<strong>0000 0101</strong></p>
+<p>　　　　　　　结果：<strong>r = 5</strong></p>
+<p>负数：<strong>r = -20 &gt;&gt; 2</strong></p>
+<p>　　-20 的二进制原码 ：<strong>1001 0100</strong></p>
+<p>　　-20 的二进制反码 *<em>：1110 1011<br>*</em></p>
+<p>　　-20 的二进制补码 ：<strong>1110 1100</strong> </p>
+<p>　　右移两位后的补码：<strong>1111 1011</strong> </p>
+<p>　　　　　　　　反码：<strong>1111 1010</strong></p>
+<p>　　　　　　　　原码：<strong>1000 0101</strong></p>
+<p>　　　　　　　　结果：<strong>r = -5</strong></p>
+<p><strong>&gt;&gt;&gt;表示无符号右移，也叫逻辑右移，即若该数为正，则高位补0，而若该数为负数，则右移后高位同样补0</strong></p>
+<p>正数：　<strong>r = 20 &gt;&gt;&gt; 2</strong></p>
+<p>　　　　的结果与 r = 20 &gt;&gt; 2 相同；</p>
+<p>负数：　<strong>r = -20 &gt;&gt;&gt; 2</strong></p>
+<p>注：以下数据类型默认为int 32位</p>
+<p>　　-20:源码：<strong>10000000 00000000 00000000 00010100</strong></p>
+<p>　　　　反码：<strong>11111111 11111111  11111111  11101011</strong></p>
+<p>　　　　补码：<strong>11111111 11111111  11111111  11101100</strong></p>
+<p>　　　　右移：<strong>00111111 11111111  11111111  11111011</strong></p>
+<p>　　　　结果：<strong>r = 1073741819</strong></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">三月三</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zysheep.cn/2020/05/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">https://zysheep.cn/2020/05/12/数据结构与算法/数据结构/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zysheep.cn" target="_blank">三月三</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post_share"><div class="social-share" data-image="http://cdn.panyucable.cn/zysheep/wallhaven-n673pw.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgwechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/zysheep/picgo-imgs/imgalipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/05/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/"><img class="prev_cover" src="http://cdn.panyucable.cn/zysheep/s_cover.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">死磕算法,头破血流</div></div></a></div><div class="next-post pull_right"><a href="/2020/04/12/JavaSE/jdk11/jdk11%E6%96%B0%E7%89%B9%E6%80%A7/"><img class="next_cover" src="http://cdn.panyucable.cn/zysheep/1801x1200.jfif" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java 11 新特性</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/05/13/数据结构与算法/HashMap/" title="HashMap"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/al1_top.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-05-13</div><div class="relatedPosts_title">HashMap</div></div></a></div><div class="relatedPosts_item"><a href="/2020/05/13/数据结构与算法/算法/" title="死磕算法,头破血流"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/s_cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-05-13</div><div class="relatedPosts_title">死磕算法,头破血流</div></div></a></div><div class="relatedPosts_item"><a href="/2018/04/06/JavaSE/Collection/37/" title="Java 数据结构"><img class="relatedPosts_cover" src="http://cdn.panyucable.cn/zysheep/1476x923.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2018-04-06</div><div class="relatedPosts_title">Java 数据结构</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '502b8308721b081071a5',
+  clientSecret: '35220d15c7f8aaf585d6822cf5d49fedf5b602d6',
+  repo: 'blog-comment',
+  owner: 'zysheep',
+  admin: ['zysheep'],
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN',
+  perPage: 10,
+  distractionFreeMode: false,
+  pagerDirection: 'last',
+  createIssueManually: false,
+  updateCountCallback: commentCount
+})
+gitalk.render('gitalk-container')
+
+function commentCount(n){
+  try {
+    document.getElementsByClassName('gitalk-comment-count')[0].innerHTML= n
+  } catch (e) {
+    return false
+  }
+}</script></div></article></main><footer id="footer" style="background-image: url(http://cdn.panyucable.cn/zysheep/110258139.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 三月三</div><div class="footer_custom_text">生活不只是眼前的苟且,还有诗和远方</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/js/third-party/click_heart.js"></script><script src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/js/hideCategory.min.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
